@@ -45,64 +45,52 @@
           Contact: "{{ my_email_address }}"
           DeleteBy: "{{ deleteby }}"
         rules:
-          - group_name: ping
-            proto: icmp
+          - proto: icmp
             from_port: 8 # icmp type, -1 = any type
             to_port: -1 # icmp subtype, -1 = any subtype
             cidr_ip: 0.0.0.0/0
             rule_desc: allow ping
-          - group_name: secure shell
-            proto: tcp
+          - proto: tcp
             ports: 22
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 22 secure shell
-          - group_name: web port 80
-            proto: tcp
+          - proto: tcp
             ports: 80
             cidr_ip: 0.0.0.0/0
             rule_desc: lets encrypt
-          - group_name: automation controller
-            proto: tcp
+          - proto: tcp
             ports: 8080
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8080 automation controller
-          - group_name: automation controller
-            proto: tcp
+          - proto: tcp
             ports: 8443
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8443 automation controller
-          - group_name: automation hub
-            proto: tcp
+          - proto: tcp
             ports: 8081
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8081 automation hub
-          - group_name: automation hub
-            proto: tcp
+          - proto: tcp
             ports: 8444
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8444 automation hub
-          - group_name: eda controller
-            proto: tcp
+          - proto: tcp
             ports: 8082
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8082 eda controller
-          - group_name: eda controller
-            proto: tcp
+          - proto: tcp
             ports: 8445
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 8445 eda controller
-          - group_name: postgres
-            proto: tcp
+          - proto: tcp
             ports: 5432
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 5432 Postgres
-          - group_name: cockpit
-            proto: tcp
+          - proto: tcp
             ports: 9090
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 9090 Cockpit
-          - group_name: receptor
-            proto: tcp
+          - proto: tcp
             ports: 27199
             cidr_ip: 0.0.0.0/0
             rule_desc: allow all on port 27199 Receptor
