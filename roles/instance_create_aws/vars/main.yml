@@ -5,7 +5,7 @@ subnet_name: "{{ vpc_name }}_Subnet"
 image: ami-06127bea7af8a9ad8
 count: 1
 region: us-west-1
-assign_public_ip: yes
+assign_public_ip: true
 alwaysup: false
 instance_type: m5.xlarge
 ec2_security_group_name: "{{ vpc_name }}_SECGRP"
