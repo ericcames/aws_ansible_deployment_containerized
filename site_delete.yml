@@ -1,0 +1,9 @@
+---
+- name: Delete AWS VPC
+  hosts: localhost
+  connection: local
+
+  roles:
+
+    - role: vpc_delete_aws
+...
