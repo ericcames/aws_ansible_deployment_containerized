@@ -2,12 +2,7 @@
   - name: Create RHEL instances needed for Ansible Automation Controller
     hosts: localhost
     connection: local
-    gather_facts: no
-    vars:
-       ec2_security_group_name: "{{ vpc_name }}_SECGRP"
-       ec2_ansible_group: "{{ user_name }}"
-       my_email_address: "{{ user_name }}@redhat.com"
-
+    
     tasks:
 
       - name: Looking Up Subnet_id for {{ subnet_name }} if vpc_subnet_id doesn't exist
