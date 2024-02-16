@@ -10,10 +10,8 @@ galaxy_info:
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
 
-  galaxy_tags: 
+  galaxy_tags:
     - amazon
-    - Create_VPC
-
+    - createvpc
 dependencies: []
 ...
-

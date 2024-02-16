@@ -2,8 +2,8 @@
 - name: Create AWS VPC for Ansible Automation Platform deployment
   hosts: localhost
   connection: local
-  
+
   roles:
 
-    - name: vpc_create_aws
+    - role: vpc_create_aws
 ...
