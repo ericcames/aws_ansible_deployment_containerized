@@ -1,38 +1,54 @@
-Role Name
+vpc_create_aws
 =========
 
-A brief description of the role goes here.
+This role will create an Amazon Virtual Private Cloud (VPC).
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Amazon Web Console Account
+Amazon Web Services Credential in Ansible Automation Platform
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+vpc_name: your_vpc_name_goes_here
+vpc_cidr: 172.16.3.0/24
+region: us-west-1
+user_name: first.last
+alwaysup: false
+deleteby: hercules
+ec2_ansible_group: "{{ user_name }}"
+ec2_security_group_name: "{{ vpc_name }}_SECGRP"
+ec2_vpc_subnet_name: "{{ vpc_name }}_Subnet"
+ec2_rt_name: "{{ vpc_name }}_RT_Internet"
+ec2_igw_name: "{{ vpc_name }}_IGW"
+my_email_address: "{{ user_name }}@redhat.com"
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+amazon.aws
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+---
+- name: Create AWS VPC for Ansible Automation Platform deployment
+  hosts: localhost
+  connection: local
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  roles:
+
+    - name: vpc_create_aws 
 
 License
 -------
 
-BSD
+https://spdx.org/licenses/GPL-3.0-only.html
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Eric C Ames
+ericcames@msn.com

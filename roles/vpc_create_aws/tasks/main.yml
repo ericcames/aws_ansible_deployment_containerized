@@ -1,2 +1,140 @@
 ---
-# tasks file for vpc_create_aws
+- name: Create VPC
+  register: my_vpc
+  amazon.aws.ec2_vpc_net:
+    name: "{{ vpc_name }}_{{ user_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ region }}"
+    state: present
+    tags:
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ user_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeletebBy: "{{ deleteby }}"
+
+- name: Create security group
+  tags:
+    - createsecgrp
+    - onlyvpc
+  register: my_security_group
+  amazon.aws.ec2_security_group:
+    name: "{{ ec2_security_group_name }}"
+    description: Security group with rule descriptions created by Ansible
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    region: "{{ region }}"
+    tags:
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ user_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
+    rules:
+      - proto: icmp
+        from_port: 8 # icmp type, -1 = any type
+        to_port: -1 # icmp subtype, -1 = any subtype
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow ping
+      - proto: tcp
+        ports: 22
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 22 secure shell
+      - proto: tcp
+        ports: 80
+        cidr_ip: 0.0.0.0/0
+        rule_desc: lets encrypt
+      - proto: tcp
+        ports: 8080
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8080 automation controller
+      - proto: tcp
+        ports: 8443
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8443 automation controller
+      - proto: tcp
+        ports: 8081
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8081 automation hub
+      - proto: tcp
+        ports: 8444
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8444 automation hub
+      - proto: tcp
+        ports: 8082
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8082 eda controller
+      - proto: tcp
+        ports: 8445
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 8445 eda controller
+      - proto: tcp
+        ports: 5432
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 5432 Postgres
+      - proto: tcp
+        ports: 9090
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 9090 Cockpit
+      - proto: tcp
+        ports: 27199
+        cidr_ip: 0.0.0.0/0
+        rule_desc: allow all on port 27199 Receptor
+
+- name: Create subnet
+  tags:
+    - createsubnet
+    - onlyvpc
+  register: my_vpc_subnet
+  amazon.aws.ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    cidr: "{{ vpc_cidr }}"
+    region: "{{ region }}"
+    map_public: true
+    tags:
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ ec2_vpc_subnet_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
+
+- name: Create IGW
+  tags:
+    - createigw
+    - onlyvpc
+  register: my_igw
+  amazon.aws.ec2_vpc_igw:
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    region: "{{ region }}"
+    state: present
+    tags:
+      Name: "{{ ec2_igw_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeletebBy: "{{ deleteby }}"
+
+- name: Create Internet route Table
+  tags:
+    - creatert
+    - onlyvpc
+  register: my_route_table
+  amazon.aws.ec2_vpc_route_table:
+    vpc_id: "{{ my_vpc.vpc.id }}"
+    region: "{{ region }}"
+    tags:
+      AlwaysUp: " {{ alwaysup }} "
+      Name: "{{ ec2_rt_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
+    subnets:
+      - "{{ my_vpc_subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ my_igw.gateway_id }}"
+...
