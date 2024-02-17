@@ -1,6 +1,7 @@
 ---
 collections:
 - name: amazon.aws
+- name: ansible.posix
 - name: servicenow.itsm
 - name: awx.awx
 - name: redhat.rhel_system_roles
