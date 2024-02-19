@@ -8,10 +8,10 @@
   ansible.builtin.debug:
     var: eip_info
 
-# - name: Setting AAP_Deployment ec2 nodes to absent
-#   loop: "{{ instance_info['instances'] }}"
-#   amazon.aws.ec2_instance:
-#     region: "{{ region }}"
-#     state: absent
-#     instance_ids: "{{ item['instance_id'] }}"
+- name: Deleteing elastic ip addresses
+  loop: "{{ eip_info['addresses'] }}"
+  amazon.aws.ec2_eip:
+    region: "{{ region }}"
+    state: absent
+    instance_ids: "{{ item['allocation_id'] }}"
 ...
