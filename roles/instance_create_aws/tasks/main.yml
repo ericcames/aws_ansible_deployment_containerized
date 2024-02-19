@@ -72,6 +72,7 @@
 
 - name: Capture useful server data
   ansible.builtin.set_stats:
+    persist: true
     data:
       my_controller_server_data: "{{ instance_info }}"
 ...
