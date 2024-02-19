@@ -1,5 +1,5 @@
 ---
-- name: Delete AWS VPC
+- name: Delete contianerized Ansible Automation Platform deployment at Amazon
   hosts: localhost
   connection: local
 
