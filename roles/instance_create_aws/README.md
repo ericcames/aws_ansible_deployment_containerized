@@ -28,8 +28,6 @@ my_email_address: "{{ user_name }}@redhat.com"
 Dependencies
 ------------
 
-amazon.aws
-
 Example Playbook
 ----------------
 
