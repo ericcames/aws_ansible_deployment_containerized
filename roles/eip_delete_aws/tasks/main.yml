@@ -13,5 +13,5 @@
   amazon.aws.ec2_eip:
     region: "{{ region }}"
     state: absent
-    instance_ids: "{{ item['allocation_id'] }}"
+    ip: "{{ item['public_ip'] }}"
 ...
