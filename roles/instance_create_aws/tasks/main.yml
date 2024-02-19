@@ -61,17 +61,4 @@
     host: "{{ item['public_ip'] }}"
     search_regex: OpenSSH
     delay: 10
-
-- name: Get Ansible Controller instances
-  register: instance_info
-  amazon.aws.ec2_instance_info:
-    region: "{{ region }}"
-    filters:
-      "tag:Name": "Ansible Automation Platform"
-      instance-state-name: ["running"]
-
-- name: Capture useful server data
-  ansible.builtin.set_stats:
-    data:
-      my_controller_server_data: "{{ instance_info }}"
 ...
