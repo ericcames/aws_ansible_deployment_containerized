@@ -1,9 +1,0 @@
----
-- name: Delete AWS EIPs
-  hosts: localhost
-  connection: local
-
-  roles:
-
-    - role: eip_delete_aws
-...
