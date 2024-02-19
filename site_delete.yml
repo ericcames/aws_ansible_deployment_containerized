@@ -5,6 +5,6 @@
 
   roles:
 
-    - role: vpc_delete_aws
     - role: instance_delete_aws
+    - role: vpc_delete_aws
 ...
