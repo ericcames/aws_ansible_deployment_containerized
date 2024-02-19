@@ -50,6 +50,8 @@
   amazon.aws.ec2_eip:
     device_id: "{{ item['instance_id'] }}"
     region: "{{ region }}"
+    tag_name: reserved_for
+    tag_value: "{{ item['instance_id'] }}"
     release_on_disassociation: true
 
 - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
