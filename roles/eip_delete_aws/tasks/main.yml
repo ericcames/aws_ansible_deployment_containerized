@@ -1,0 +1,17 @@
+---
+- name: Get elastic ip addresses
+  register: eip_info
+  amazon.aws.ec2_eip_info:
+    region: "{{ region }}"
+    
+- name: Print
+  ansible.builtin.debug:
+    var: eip_info
+
+# - name: Setting AAP_Deployment ec2 nodes to absent
+#   loop: "{{ instance_info['instances'] }}"
+#   amazon.aws.ec2_instance:
+#     region: "{{ region }}"
+#     state: absent
+#     instance_ids: "{{ item['instance_id'] }}"
+...
