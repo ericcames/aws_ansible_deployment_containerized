@@ -1,0 +1,18 @@
+---
+users:
+  - name: foobar
+    sudoers_account: false
+    user_comment: "Normal User"
+    user_password: Ansible-r0cks!
+  - name: ansible-svc
+    sudoers_account: true
+    user_comment: "Service Account"
+    user_password: Ansible-r0cks!
+  - name: jsmith
+    sudoers_account: true
+    user_comment: "Administrative Account"
+    user_password: Ansible-r0cks!
+keys:
+  - foobar
+  - ansible-svc
+...

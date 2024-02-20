@@ -1,0 +1,26 @@
+---
+- name: Ensure users are created
+  loop: "{{ users }}"
+  ansible.builtin.user:
+    name: "{{ item['name'] }}"
+    password: "{{ item['user_password'] | password_hash('sha512') }}"
+    update_password: on_create
+    comment: "{{ item['user_comment'] }}"
+
+- name: Create sudoers in sudoers.d directory
+  loop: "{{ users }}"
+  when: item['sudoers_account'] == 'true'
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/{{ item['name'] }}"
+    content: "{{ item['name'] }} ALL=(ALL) NOPASSWD: ALL\n"
+    owner: root
+    group: root
+    mode: 'ug+rwX,o='
+
+- name: Making sure the public keys are in place
+  loop: "{{ keys }}"
+  ansible.posix.authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "files/public_keys/{{ item }}"
+...
