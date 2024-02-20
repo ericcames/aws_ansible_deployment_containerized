@@ -1,5 +1,5 @@
 ---
-- name: Create containerized Ansible Automation Platform deployment
+- name: Create containerized Ansible Automation Platform deployment at AWS
   hosts: localhost
   connection: local
 
@@ -8,4 +8,12 @@
     - role: vpc_create_aws
     - role: instance_create_aws
     - role: inventory_add_servers
+
+- name: Build out the newly provisioned server
+  hosts: control
+  become: true
+
+  roles:
+
+    - role: linux_post_install
 ...
