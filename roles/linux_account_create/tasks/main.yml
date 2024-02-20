@@ -26,7 +26,7 @@
 - name: Making sure the public keys are in place
   loop: "{{ keys }}"
   ansible.posix.authorized_key:
-    user: "{{ item }}"
+    user: "{{ item['name']}}"
     state: present
-    key: "{{ lookup('file', 'files/public_keys/'{{ item }})"
+    key: "{{ item['key'] }}"
 ...
