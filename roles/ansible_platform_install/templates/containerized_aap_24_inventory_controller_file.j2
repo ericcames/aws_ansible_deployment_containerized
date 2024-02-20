@@ -35,10 +35,10 @@ fqdn_of_your_rhel_host ansible_connection=local
 # Common variables needed for installation
 # ----------------------------------------
 postgresql_admin_username=postgres
-postgresql_admin_password=<set your own>
+postgresql_admin_password='{{ PASSWORDGOESHERE }}'
 # If using the online (non-bundled) installer, you need to set RHN registry credentials
-registry_username=<your RHN username>
-registry_password=<your RHN password>
+registry_username='{{ MY_REGISTRY_USERNAME }}'
+registry_password='{{ MY_REGISTRY_PASSWORD }}'
 # If using the bundled installer, you need to alter defaults by using:
 #bundle_install=true
 # The bundle directory must include /bundle in the path
@@ -59,9 +59,9 @@ registry_password=<your RHN password>
 
 # AAP Controller - mandatory
 # --------------------------
-controller_admin_password=<set your own>
+controller_admin_password='{{ PASSWORDGOESHERE }}'
 controller_pg_host=fqdn_of_your_rhel_host
-controller_pg_password=<set your own>
+controller_pg_password='{{ PASSWORDGOESHERE }}'
 
 # AAP Controller - optional
 # -------------------------
@@ -78,9 +78,9 @@ controller_pg_password=<set your own>
 
 # AAP Automation Hub - mandatory
 # ------------------------------
-hub_admin_password=<set your own>
+hub_admin_password='{{ PASSWORDGOESHERE }}'
 hub_pg_host=fqdn_of_your_rhel_host
-hub_pg_password=<set your own>
+hub_pg_password='{{ PASSWORDGOESHERE }}'
 
 # AAP Automation Hub - optional
 # -----------------------------
@@ -104,9 +104,9 @@ hub_pg_password=<set your own>
 
 # AAP EDA Controller - mandatory
 # ------------------------------
-eda_admin_password=<set your own>
+eda_admin_password='{{ PASSWORDGOESHERE }}'
 eda_pg_host=fqdn_of_your_rhel_host
-eda_pg_password=<set your own>
+eda_pg_password='{{ PASSWORDGOESHERE }}'
 
 # AAP EDA Controller - optional
 # -----------------------------
