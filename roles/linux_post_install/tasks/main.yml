@@ -1,0 +1,130 @@
+---
+- name: Register and subscribe the systems to access.redhat.com
+  community.general.redhat_subscription:
+    username: "{{ customer_portal_username }}"
+    password: "{{ customer_portal_password }}"
+    state: present
+    consumer_name: "{{ inventory_hostname }}"
+
+- name: Making sure the insights-client is installed
+  ansible.builtin.dnf:
+    name: 
+      - insights-client
+    state: present
+
+- name: Register the insights client
+  redhat.insights.insights_register:
+    state: present
+
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: '*'
+    state: latest
+
+- name: Copy the sshd-banner file into place
+  ansible.builtin.copy:
+    src: files/sshd-banner
+    dest: /etc/ssh/sshd-banner
+    owner: root
+    group: root
+    mode: u+rw,g-wx,o-wx
+    
+- name: Updating the sshd_config file to show the new banner
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: '^#Banner none'
+    line: 'Banner /etc/ssh/sshd-banner'
+
+- name: Reloading sshd service 
+  ansible.builtin.systemd:
+    state: reloaded
+    name: sshd.service
+    enabled: yes
+  
+- name: Copy the new /etc/motd into place
+  ansible.builtin.copy:
+    src: files/motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: u+rw,g-wx,o-wx
+
+- name: Ensure the /etc/motd is updated to show we are on a control server
+  when: "'control' in group_names"
+  ansible.builtin.lineinfile:
+    path: /etc/motd
+    line: Containerized Ansible Automation Platform
+    
+- name: Copy the new /etc/issue into place
+  ansible.builtin.copy:
+    src: files/issue
+    dest: /etc/issue
+    owner: root
+    group: root
+    mode: u+rw,g-wx,o-wx
+
+- name: Make sure the /etc/motd.d directory exists
+  ansible.builtin.file:
+    path: /etc/motd.d
+    state: directory
+    mode: '0755'
+
+- name: Get rid of the cockpit.socket message
+  when: "ansible_distribution_release != 'Maipo'"
+  ansible.builtin.file:
+    src: /dev/null
+    dest: /etc/motd.d/cockpit
+    owner: root
+    group: root
+    state: link
+
+- name: Get rid of the insights client message
+  when: "ansible_distribution_release != 'Maipo'"
+  ansible.builtin.file:
+    src: /dev/null
+    dest: /etc/motd.d/insights-client
+    owner: root
+    group: root
+    state: link
+
+- name: Install the latest version of cockpit
+  ansible.builtin.dnf:
+    name: cockpit
+    state: latest
+
+- name: Copy the /etc/issue.cockpit into place
+  ansible.builtin.copy:
+    src: files/issue.cockpit
+    dest: /etc/issue.cockpit
+    owner: root
+    group: root
+    mode: u+rw,g-wx,o-wx
+
+- name: Copy the /etc/cockpit/cockpit.conf into place
+  ansible.builtin.copy:
+    src: files/cockpit.conf
+    dest: /etc/cockpit/cockpit.conf
+    owner: root
+    group: root
+    mode: u+rw,g-wx,o-wx
+
+- name: Enable the cockpit socket
+  changed_when: false
+  ansible.builtin.command:
+    cmd: systemctl enable cockpit.socket
+
+- name: Start the cockpit socket
+  changed_when: false
+  ansible.builtin.command:
+    cmd: systemctl start cockpit.socket
+
+- name: Check to see if we need a reboot
+  register: reboot_required
+  ansible.builtin.stat:
+    path: /var/run/reboot-required
+
+- name: Reboot the machine if it is required
+  when: reboot_required.stat.exists
+  ansible.builtin.reboot:
+...
