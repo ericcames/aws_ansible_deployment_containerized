@@ -16,5 +16,16 @@
   roles:
 
     - role: linux_post_install
+    - role: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: ansible
+          disks:
+            - /dev/nvme1n1
+          volumes:
+            - name: varlibawx
+              size: "100 GiB"
+              fs_type: xfs
+              mount_point: "/var/lib/awx"
+              state: present
     - role: linux_account_create
 ...
