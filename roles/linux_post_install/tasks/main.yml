@@ -70,24 +70,6 @@
     state: directory
     mode: '0755'
 
-- name: Get rid of the cockpit.socket message
-  when: "ansible_distribution_release != 'Maipo'"
-  ansible.builtin.file:
-    src: /dev/null
-    dest: /etc/motd.d/cockpit
-    owner: root
-    group: root
-    state: link
-
-- name: Get rid of the insights client message
-  when: "ansible_distribution_release != 'Maipo'"
-  ansible.builtin.file:
-    src: /dev/null
-    dest: /etc/motd.d/insights-client
-    owner: root
-    group: root
-    state: link
-
 - name: Install the latest version of cockpit
   ansible.builtin.dnf:
     name: cockpit

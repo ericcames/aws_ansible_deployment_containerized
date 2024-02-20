@@ -1,0 +1,17 @@
+---
+- name: Making sure the insights-client is installed
+  ansible.builtin.dnf:
+    name: 
+      - insights-client
+    state: present
+
+- name: Register and subscribe the systems to access.redhat.com
+  community.general.redhat_subscription:
+    username: "{{ customer_portal_username }}"
+    password: "{{ customer_portal_password }}"
+    state: absent
+
+- name: Register the insights client
+  redhat.insights.insights_register:
+    state: absent
+...
