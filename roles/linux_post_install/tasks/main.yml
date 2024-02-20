@@ -15,7 +15,6 @@
 - name: Register the insights client
   redhat.insights.insights_register:
     state: present
-    insights_name: "{{ inventory_hostname }}"
 
 - name: Upgrade all packages
   ansible.builtin.dnf:
