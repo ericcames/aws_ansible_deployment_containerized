@@ -28,5 +28,5 @@
   ansible.posix.authorized_key:
     user: "{{ item['name']}}"
     state: present
-    key: "{{ item['key'] }}"
+    key: "{{ lookup('file', item['key'] ) }}"
 ...
