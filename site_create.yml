@@ -16,4 +16,5 @@
   roles:
 
     - role: linux_post_install
+    - role: linux_account_create
 ...
