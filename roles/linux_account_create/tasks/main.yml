@@ -15,6 +15,7 @@
 - name: Create sudoers in sudoers.d directory
   loop: "{{ users }}"
   when: item['sudoers_account'] is true
+  no_log: true
   ansible.builtin.copy:
     dest: "/etc/sudoers.d/{{ item['name'] }}"
     content: "{{ item['name'] }} ALL=(ALL) NOPASSWD: ALL\n"
@@ -27,5 +28,5 @@
   ansible.posix.authorized_key:
     user: "{{ item }}"
     state: present
-    key: "roles/linux_account_create/files/public_keys/{{ item }}"
+    key: "files/public_keys/{{ item }}"
 ...
