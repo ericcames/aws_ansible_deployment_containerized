@@ -41,4 +41,11 @@
     inventory: "AAP Containerized AWS Inventory - Managed"
     hosts: "{{ item['public_dns_name'] }}"
     preserve_existing_hosts: true
+
+- name: Update runtime inventory
+  loop: "{{ instance_info['instances'] }}"
+  ansible.builtin.add_host:
+    name: "{{ item['public_dns_name'] }}"
+    groups: 
+    - control
 ...

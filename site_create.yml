@@ -10,7 +10,7 @@
     - role: inventory_add_servers
 
 - name: Build out the newly provisioned server
-  hosts: all
+  hosts: control
   become: true
 
   roles:
