@@ -1,4 +1,8 @@
 ---
+- name: Include our user info
+  ansible.builtin.include_vars:
+    file: files/user_list_vault.yml
+    
 - name: Ensure users are created
   loop: "{{ users }}"
   ansible.builtin.user:
