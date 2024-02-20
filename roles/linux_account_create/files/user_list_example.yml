@@ -13,6 +13,7 @@ users:
     user_comment: "Administrative Account"
     user_password: Ansible-r0cks!
 keys:
-  - foobar
-  - ansible-svc
+  - name: foobar
+    key: files/public_keys/foobar
+  - name: files/public/keys/ansible-svc
 ...
