@@ -8,7 +8,7 @@
     username: "{{ customer_portal_username }}"
     password: "{{ customer_portal_password }}"
     state: present
-    # consumer_name: "{{ inventory_hostname }}"
+    consumer_name: "{{ containerized_controller_url }}"
 
 - name: Making sure the epel repo is made available
   ansible.builtin.dnf:
