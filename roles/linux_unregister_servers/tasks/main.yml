@@ -10,6 +10,7 @@
     username: "{{ customer_portal_username }}"
     password: "{{ customer_portal_password }}"
     state: absent
+    consumer_name: "{{ containerized_controller_url }}"
 
 - name: Register the insights client
   redhat.insights.insights_register:
