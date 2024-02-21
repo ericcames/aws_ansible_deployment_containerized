@@ -38,22 +38,14 @@
   changed_when: false
   ansible.builtin.shell: ls -d /var/lib/awx/ansible-automation-platform-containerized-setup-bundle*
 
-# - name: Ensure the inventory file is configured to install the Controller
-#   ansible.builtin.template:
-#     src: templates/aap_24_inventory_controller_file.j2
-#     dest: "{{ aap_bundle_dir.stdout }}/inventory"
-#     owner: root
-#     group: root
-#     mode: 0644
-#     backup: true
-
-# - name: Ensure the Controller is in the file
-#   loop: "{{ my_controller_server_data['instances'] }}"
-#   ansible.builtin.lineinfile:
-#     path: "{{ aap_bundle_dir.stdout }}/inventory"
-#     insertafter: '^.automationcontroller.$'
-#     line: "{{ item['public_dns_name'] }}"
-#     state: present
+- name: Ensure the inventory file is configured to install the Controller
+  ansible.builtin.template:
+    src: templates/containerized_aap_24_inventory_controller_file.j2
+    dest: "{{ aap_bundle_dir.stdout }}/inventory"
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
 
 # - name: Run the installer
 #   args:

@@ -6,10 +6,13 @@
     state: present
     consumer_name: "{{ inventory_hostname }}"
 
-- name: Making sure the insights-client is installed
+- name: Making sure all our software is installed
   ansible.builtin.dnf:
     name: 
       - insights-client
+      - bind-utils
+      - epel-release
+      - certbot
     state: present
 
 - name: Register the insights client
