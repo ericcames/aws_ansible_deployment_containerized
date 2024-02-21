@@ -60,9 +60,10 @@
     name: ansible-svc
     home: /var/lib/awx
 
-# - name: Run the installer
-#   args:
-#     chdir: "{{ aap_bundle_dir.stdout }}"
-#   ansible.builtin.shell:
-#     cmd: "{{ aap_bundle_dir.stdout }}/setup.sh"
+- name: Run the installer
+  become_user: ansible-svc
+  args:
+    chdir: "{{ aap_bundle_dir.stdout }}"
+  ansible.builtin.shell:
+    cmd: "{{ aap_bundle_dir.stdout }}/ansible-playbook -i inventory ansible.containerized_installer.install -vvvv"
 ...
