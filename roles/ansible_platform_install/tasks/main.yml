@@ -55,6 +55,11 @@
     owner: ansible-svc
     group: ansible-svc
 
+- name: Change the ansible-svc account home directory
+  ansible.builtin.user:
+    name: ansible-svc
+    home: /var/lib/awx
+
 # - name: Run the installer
 #   args:
 #     chdir: "{{ aap_bundle_dir.stdout }}"
