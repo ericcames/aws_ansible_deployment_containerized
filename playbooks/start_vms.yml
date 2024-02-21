@@ -1,16 +1,15 @@
 ---
-- name: Shutdown AAP VMs
+- name: Start AAP VMs
   hosts: localhost
   connection: local
 
   tasks:
-    - name: Shutdown VMs based on tag filters
+
+    - name: Start VMs based on tag filters
+      register: aap_vms
       amazon.aws.ec2_instance:
-        state: stopped
+        state: running
         filters:
           "tag:Environment": "AAP_Deployment"
-          "instance-state-name":
-            - pending
-            - running
         region: "{{ infrastructure_region }}"
 ...
