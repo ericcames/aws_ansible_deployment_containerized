@@ -16,6 +16,11 @@
       - insights-client
       - bind-utils
       - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+    state: present
+
+- name: Making sure certbot is installed
+  ansible.builtin.dnf:
+    name: 
       - certbot
     state: present
 
