@@ -11,7 +11,7 @@
     name: 
       - insights-client
       - bind-utils
-      - epel-release
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
       - certbot
     state: present
 
