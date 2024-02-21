@@ -35,7 +35,7 @@
 # Common variables needed for installation
 # ----------------------------------------
 postgresql_admin_username=postgres
-postgresql_admin_password='{{ passwordgoeshere }}'
+postgresql_admin_password='{{ controller_passwd }}'
 # If using the online (non-bundled) installer, you need to set RHN registry credentials
 registry_username='{{ MY_REGISTRY_USERNAME }}'
 registry_password='{{ MY_REGISTRY_PASSWORD }}'
@@ -59,9 +59,9 @@ registry_password='{{ MY_REGISTRY_PASSWORD }}'
 
 # AAP Controller - mandatory
 # --------------------------
-controller_admin_password='{{ passwordgoeshere }}'
+controller_admin_password='{{ controller_passwd }}'
 controller_pg_host='{{  containerized_controller_url }}'
-controller_pg_password='{{ passwordgoeshere }}'
+controller_pg_password='{{ controller_passwd }}'
 
 # AAP Controller - optional
 # -------------------------
@@ -78,9 +78,9 @@ controller_pg_password='{{ passwordgoeshere }}'
 
 # AAP Automation Hub - mandatory
 # ------------------------------
-hub_admin_password='{{ passwordgoeshere }}'
+hub_admin_password='{{ controller_passwd }}'
 hub_pg_host='{{  containerized_controller_url }}'
-hub_pg_password='{{ passwordgoeshere }}'
+hub_pg_password='{{ controller_passwd }}'
 
 # AAP Automation Hub - optional
 # -----------------------------
@@ -104,9 +104,9 @@ hub_pg_password='{{ passwordgoeshere }}'
 
 # AAP EDA Controller - mandatory
 # ------------------------------
-eda_admin_password='{{ passwordgoeshere }}'
+eda_admin_password='{{ controller_passwd }}'
 eda_pg_host='{{  containerized_controller_url }}'
-eda_pg_password='{{ passwordgoeshere }}'
+eda_pg_password='{{ controller_passwd }}'
 
 # AAP EDA Controller - optional
 # -----------------------------
