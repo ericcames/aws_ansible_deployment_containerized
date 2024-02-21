@@ -27,8 +27,8 @@
 # Uncomment the lines below and amend appropriately if you want AAP to install and manage the postgres databases
 # Leave commented out if you intend to use your own external database and just set appropriate _pg_hosts vars
 # see mandatory sections under each AAP component
-#[database]
-#'{{  containerized_controller_url }}' ansible_connection=local
+[database]
+'{{  containerized_controller_url }}' ansible_connection=local
 
 [all:vars]
 
