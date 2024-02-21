@@ -65,5 +65,5 @@
   args:
     chdir: "{{ aap_bundle_dir.stdout }}"
   ansible.builtin.shell:
-    cmd: "{{ aap_bundle_dir.stdout }}/ansible-playbook -i inventory ansible.containerized_installer.install -vvvv"
+    cmd: "ansible-playbook -i inventory ansible.containerized_installer.install -vvvv"
 ...
