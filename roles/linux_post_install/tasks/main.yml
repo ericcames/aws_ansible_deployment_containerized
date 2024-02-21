@@ -1,10 +1,14 @@
 ---
+- name: Rename server
+  ansible.builtin.hostname:
+    name: "{{ containerized_controller_url }}"
+
 - name: Register and subscribe the systems to access.redhat.com
   community.general.redhat_subscription:
     username: "{{ customer_portal_username }}"
     password: "{{ customer_portal_password }}"
     state: present
-    consumer_name: "{{ inventory_hostname }}"
+    # consumer_name: "{{ inventory_hostname }}"
 
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
