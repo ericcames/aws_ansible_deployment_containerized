@@ -4,11 +4,5 @@
 
   tasks:
 
-    - name: Install postgresql-server & run postgresql-setup command & enable postgresql-server to start at boot
-      ansible.builtin.package:
-        name:
-          - postgresql-server
-          - postgresql-client
-          - postgresql-contrib
-        state: present
+    # - name: Install postgresql-server & run postgresql-setup command & enable postgresql-server to start at boot
 ...
