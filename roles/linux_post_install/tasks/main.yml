@@ -12,14 +12,14 @@
 
 - name: Making sure the epel repo is made available
   ansible.builtin.dnf:
-    name: 
+    name:
       - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
     state: present
     disable_gpg_check: true
 
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
-    name: 
+    name:
       - certbot
       - insights-client
       - bind-utils
@@ -31,7 +31,7 @@
 
 - name: Upgrade all packages
   ansible.builtin.dnf:
-    name: '*'
+    name: "*"
     state: latest
 
 - name: Copy the sshd-banner file into place
@@ -41,20 +41,20 @@
     owner: root
     group: root
     mode: u+rw,g-wx,o-wx
-    
+
 - name: Updating the sshd_config file to show the new banner
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
     state: present
-    regexp: '^#Banner none'
-    line: 'Banner /etc/ssh/sshd-banner'
+    regexp: ^#Banner none
+    line: Banner /etc/ssh/sshd-banner
 
-- name: Reloading sshd service 
+- name: Reloading sshd service
   ansible.builtin.systemd:
     state: reloaded
     name: sshd.service
-    enabled: yes
-  
+    enabled: true
+
 - name: Copy the new /etc/motd into place
   ansible.builtin.copy:
     src: files/motd
@@ -68,7 +68,7 @@
   ansible.builtin.lineinfile:
     path: /etc/motd
     line: Containerized Ansible Automation Platform
-    
+
 - name: Copy the new /etc/issue into place
   ansible.builtin.copy:
     src: files/issue
@@ -81,7 +81,7 @@
   ansible.builtin.file:
     path: /etc/motd.d
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Install the latest version of cockpit
   ansible.builtin.dnf:
@@ -122,4 +122,3 @@
 - name: Reboot the machine if it is required
   when: reboot_required.stat.exists
   ansible.builtin.reboot:
-...

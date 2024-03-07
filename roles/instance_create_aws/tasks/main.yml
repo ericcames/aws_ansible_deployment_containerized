@@ -4,7 +4,7 @@
   amazon.aws.ec2_vpc_subnet_info:
     region: "{{ region }}"
     filters:
-      "tag:Name": "{{ subnet_name }}"
+      tag:Name: "{{ subnet_name }}"
 
 - name: Setting vpc_subnet_id based on Lookup
   when: vpc_subnet_id is undefined
@@ -14,7 +14,7 @@
 - name: Creating machine instance
   register: ec2_vms
   amazon.aws.ec2_instance:
-    name: "Ansible Automation Platform"
+    name: Ansible Automation Platform
     region: "{{ region }}"
     key_name: "{{ my_ssh_key }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
@@ -37,7 +37,7 @@
   amazon.aws.ec2_vol:
     instance: "{{ item['instance_id'] }}"
     volume_size: 100
-    name: "My Controller Volume"
+    name: My Controller Volume
     device_name: /dev/sdf
     region: "{{ region }}"
     delete_on_termination: true
@@ -61,4 +61,3 @@
     host: "{{ item['public_ip'] }}"
     search_regex: OpenSSH
     delay: 10
-...

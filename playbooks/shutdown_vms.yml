@@ -8,9 +8,8 @@
       amazon.aws.ec2_instance:
         state: stopped
         filters:
-          "tag:Environment": "AAP_Deployment"
-          "instance-state-name":
+          tag:Environment: AAP_Deployment
+          instance-state-name:
             - pending
             - running
         region: "{{ infrastructure_region }}"
-...

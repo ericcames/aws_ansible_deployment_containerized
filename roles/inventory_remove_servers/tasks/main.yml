@@ -4,39 +4,38 @@
   amazon.aws.ec2_instance_info:
     region: "{{ region }}"
     filters:
-      "tag:Name": "Ansible Automation Platform"
-      instance-state-name: ["running"]
+      tag:Name: Ansible Automation Platform
+      instance-state-name: [running]
 
 - name: Get an AAP API Token and store it as new_token
   register: new_token
   ansible.builtin.uri:
-    url: "https://{{ controller_url }}/api/v2/tokens/"
+    url: https://{{ controller_url }}/api/v2/tokens/
     method: POST
     user: "{{ controller_user }}"
     password: "{{ controller_passwd }}"
-    validate_certs: no
-    force_basic_auth: yes
+    validate_certs: false
+    force_basic_auth: true
     status_code: 201
-    return_content: yes       
+    return_content: true
 
 - name: Update the AAP AWS Managed Inventory with the controllers
   loop: "{{ instance_info['instances'] }}"
   awx.awx.host:
-    controller_host: "https://{{ controller_url }}"
+    controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
     name: "{{ item['public_dns_name'] }}"
-    inventory: "AAP Containerized AWS Inventory - Managed"
+    inventory: AAP Containerized AWS Inventory - Managed
     state: absent
 
 - name: Remove inventory host groups
   loop:
     - control
   awx.awx.group:
-    controller_host: "https://{{ controller_url }}"
+    controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
     name: "{{ item }}"
-    inventory: "AAP Containerized AWS Inventory - Managed"
+    inventory: AAP Containerized AWS Inventory - Managed
     state: absent
-...

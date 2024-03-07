@@ -4,7 +4,6 @@
   connection: local
 
   roles:
-
     - role: vpc_create_aws
     - role: instance_create_aws
     - role: inventory_add_servers
@@ -14,7 +13,6 @@
   become: true
 
   roles:
-
     - role: linux_post_install
     - role: redhat.rhel_system_roles.storage
       storage_pools:
@@ -23,10 +21,9 @@
             - /dev/nvme1n1
           volumes:
             - name: varlibawx
-              size: "100 GiB"
+              size: 100 GiB
               fs_type: xfs
-              mount_point: "/var/lib/awx"
+              mount_point: /var/lib/awx
               state: present
     - role: linux_account_create
     - role: ansible_platform_install
-...

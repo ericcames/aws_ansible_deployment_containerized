@@ -4,12 +4,10 @@
   connection: local
 
   tasks:
-
     - name: Start VMs based on tag filters
       register: aap_vms
       amazon.aws.ec2_instance:
         state: running
         filters:
-          "tag:Environment": "AAP_Deployment"
+          tag:Environment: AAP_Deployment
         region: "{{ infrastructure_region }}"
-...
