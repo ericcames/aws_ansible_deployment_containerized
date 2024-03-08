@@ -35,51 +35,51 @@
       - proto: icmp
         from_port: 8 # icmp type, -1 = any type
         to_port: -1 # icmp subtype, -1 = any subtype
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow ping
       - proto: tcp
         ports: 22
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 22 secure shell
       - proto: tcp
         ports: 80
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: lets encrypt
       - proto: tcp
         ports: 8080
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8080 automation controller
       - proto: tcp
         ports: 8443
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8443 automation controller
       - proto: tcp
         ports: 8081
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8081 automation hub
       - proto: tcp
         ports: 8444
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8444 automation hub
       - proto: tcp
         ports: 8082
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8082 eda controller
       - proto: tcp
         ports: 8445
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 8445 eda controller
       - proto: tcp
         ports: 5432
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 5432 Postgres
       - proto: tcp
         ports: 9090
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 9090 Cockpit
       - proto: tcp
         ports: 27199
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "0.0.0.0/0"
         rule_desc: allow all on port 27199 Receptor
 
 - name: Create subnet
@@ -135,6 +135,5 @@
     subnets:
       - "{{ my_vpc_subnet.subnet.id }}"
     routes:
-      - dest: 0.0.0.0/0
+      - dest: "0.0.0.0/0"
         gateway_id: "{{ my_igw.gateway_id }}"
-...

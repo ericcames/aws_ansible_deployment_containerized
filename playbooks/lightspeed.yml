@@ -5,4 +5,3 @@
   tasks:
 
     # - name: Install postgresql-server & run postgresql-setup command & enable postgresql-server to start at boot
-...

@@ -3,7 +3,7 @@
   register: eip_info
   amazon.aws.ec2_eip_info:
     region: "{{ region }}"
-    
+
 - name: Print
   ansible.builtin.debug:
     var: eip_info
@@ -14,4 +14,3 @@
     region: "{{ region }}"
     state: absent
     ip: "{{ item['public_ip'] }}"
-...

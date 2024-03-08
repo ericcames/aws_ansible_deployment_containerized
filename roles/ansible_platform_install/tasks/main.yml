@@ -10,8 +10,8 @@
     body_format: form-urlencoded
     return_content: true
     body:
-      grant_type: "refresh_token"
-      client_id: "rhsm-api"
+      grant_type: refresh_token
+      client_id: rhsm-api
       refresh_token: "{{ offline_token }}"
 
 - name: Ensure we have the AAP bundle
@@ -20,10 +20,10 @@
   retries: 15
   delay: 20
   ansible.builtin.get_url:
-    url: "https://api.access.redhat.com/management/v1/images/{{ aap_bundle_sha_value }}/download"
+    url: https://api.access.redhat.com/management/v1/images/{{ aap_bundle_sha_value }}/download
     headers:
-      accept: "application/json"
-      Authorization: "Bearer {{ access_token.json.access_token }}"
+      accept: application/json
+      Authorization: Bearer {{ access_token.json.access_token }}
     dest: /var/lib/awx/aap.tar.gz
     checksum: "sha256: {{ aap_bundle_sha_value }}"
 
@@ -31,7 +31,7 @@
   ansible.builtin.unarchive:
     src: /var/lib/awx/aap.tar.gz
     dest: /var/lib/awx/
-    remote_src: yes
+    remote_src: true
 
 - name: Ensure we have the AAP bundle directory
   register: aap_bundle_dir
@@ -44,14 +44,14 @@
     dest: "{{ aap_bundle_dir.stdout }}/inventory"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
     backup: true
 
 - name: Ensure the /usr/lib/awx direcotry is owned by ansible-svc
   ansible.builtin.file:
     path: /var/lib/awx
     state: directory
-    recurse: yes
+    recurse: true
     owner: ansible-svc
     group: ansible-svc
 
@@ -65,5 +65,4 @@
   args:
     chdir: "{{ aap_bundle_dir.stdout }}"
   ansible.builtin.shell:
-    cmd: "ansible-playbook -i inventory ansible.containerized_installer.install -vvvv"
-...
+    cmd: ansible-playbook -i inventory ansible.containerized_installer.install -vvvv

@@ -4,7 +4,6 @@
   become: true
 
   roles:
-
     - role: linux_unregister_servers
 
 - name: Delete contianerized Ansible Automation Platform deployment at Amazon
@@ -12,9 +11,7 @@
   connection: local
 
   roles:
-
     - role: instance_delete_aws
     - role: eip_delete_aws
     - role: vpc_delete_aws
     - role: inventory_remove_servers
-...

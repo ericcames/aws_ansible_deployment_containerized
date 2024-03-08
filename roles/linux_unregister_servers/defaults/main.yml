@@ -2,4 +2,3 @@
 username: "{{ customer_portal_username }}"
 password: "{{ customer_portal_password }}"
 containerized_controller_url: aap.example.com
-...
