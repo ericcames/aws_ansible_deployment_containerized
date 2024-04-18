@@ -1,7 +1,0 @@
----
-- name: Configure Database Servers
-  hosts: databases
-  become: true
-
-  tasks:
-    # Install postgresql-server & Run postgresql-setup command & start and enable postgresql service & allow the traffic
