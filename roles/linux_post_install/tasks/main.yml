@@ -23,7 +23,10 @@
       - certbot
       - insights-client
       - bind-utils
-      - ansible
+      - ansible-core
+      - wget
+      - git
+      - rsync
     state: present
 
 - name: Register the insights client
