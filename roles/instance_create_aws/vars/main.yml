@@ -2,7 +2,7 @@
 vpc_name: aap_containerized_deployment
 user_name: eric.ames
 subnet_name: "{{ vpc_name }}_Subnet"
-image: ami-06127bea7af8a9ad8
+image: ami-05a0b7dfa9839aa70
 count: 1
 region: us-west-1
 assign_public_ip: true
