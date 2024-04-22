@@ -1,7 +1,7 @@
 ---
 - name: Rename server
   ansible.builtin.hostname:
-    name: "{{ containerized_controller_url }}"
+    name: "{{ inventory_hostname }}"
 
 - name: Register and subscribe the systems to access.redhat.com
   community.general.redhat_subscription:

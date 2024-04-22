@@ -47,7 +47,7 @@
     mode: "0644"
     backup: true
 
-- name: Ensure the /usr/lib/awx direcotry is owned by ansible-svc
+- name: Ensure the /usr/lib/awx directory is owned by ansible-svc
   ansible.builtin.file:
     path: /var/lib/awx
     state: directory
