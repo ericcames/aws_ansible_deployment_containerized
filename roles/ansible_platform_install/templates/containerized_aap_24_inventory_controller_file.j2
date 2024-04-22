@@ -5,22 +5,22 @@
 # This section is for your AAP Controller host(s)
 # -------------------------------------------------
 [automationcontroller]
-'{{  containerized_controller_url }}' ansible_connection=local
+'{{  inventory_hostname }}' ansible_connection=local
 
 # This section is for your AAP Automation Hub host(s)
 # -----------------------------------------------------
 [automationhub]
-'{{  containerized_controller_url }}' ansible_connection=local
+'{{  inventory_hostname }}' ansible_connection=local
 
 # This section is for your AAP EDA Controller host(s)
 # -----------------------------------------------------
 [automationeda]
-'{{  containerized_controller_url }}' ansible_connection=local
+'{{  inventory_hostname }}' ansible_connection=local
 
 # This section is for your AAP Execution host(s)
 # ------------------------------------------------
 #[execution_nodes]
-#'{{  containerized_controller_url }}'
+#'{{  inventory_hostname }}'
 
 # This section is for the AAP database(s)
 # -----------------------------------------
@@ -28,7 +28,7 @@
 # Leave commented out if you intend to use your own external database and just set appropriate _pg_hosts vars
 # see mandatory sections under each AAP component
 [database]
-'{{  containerized_controller_url }}' ansible_connection=local
+'{{  inventory_hostname }}' ansible_connection=local
 
 [all:vars]
 
@@ -60,7 +60,7 @@ registry_password='{{ customer_portal_password }}'
 # AAP Controller - mandatory
 # --------------------------
 controller_admin_password='{{ controller_passwd }}'
-controller_pg_host='{{  containerized_controller_url }}'
+controller_pg_host='{{  inventory_hostname }}'
 controller_pg_password='{{ controller_passwd }}'
 
 # AAP Controller - optional
@@ -79,7 +79,7 @@ controller_pg_password='{{ controller_passwd }}'
 # AAP Automation Hub - mandatory
 # ------------------------------
 hub_admin_password='{{ controller_passwd }}'
-hub_pg_host='{{  containerized_controller_url }}'
+hub_pg_host='{{  inventory_hostname }}'
 hub_pg_password='{{ controller_passwd }}'
 
 # AAP Automation Hub - optional
@@ -105,13 +105,13 @@ hub_pg_password='{{ controller_passwd }}'
 # AAP EDA Controller - mandatory
 # ------------------------------
 eda_admin_password='{{ controller_passwd }}'
-eda_pg_host='{{  containerized_controller_url }}'
+eda_pg_host='{{  inventory_hostname }}'
 eda_pg_password='{{ controller_passwd }}'
 
 # AAP EDA Controller - optional
 # -----------------------------
 # When using an external controller node unmanaged by the installer.
-#controller_main_url=https://'{{  containerized_controller_url }}'
+#controller_main_url=https://'{{  inventory_hostname }}'
 # To customize the number of default/activation worker containers
 #eda_workers=2
 #eda_activation_workers=2
