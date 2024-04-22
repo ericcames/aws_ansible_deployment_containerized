@@ -23,6 +23,7 @@
       - certbot
       - insights-client
       - bind-utils
+      - ansible
     state: present
 
 - name: Register the insights client
