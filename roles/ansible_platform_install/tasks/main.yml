@@ -36,7 +36,7 @@
 - name: Ensure we have the AAP bundle directory
   register: aap_bundle_dir
   changed_when: false
-  ansible.builtin.shell: ls -d /var/lib/awx/ansible-automation-platform-containerized-setup-bundle*
+  ansible.builtin.shell: ls -d /var/lib/awx/ansible-automation-platform-containerized-*
 
 - name: Ensure the inventory file is configured to install the Controller
   ansible.builtin.template:
