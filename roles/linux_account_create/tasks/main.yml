@@ -11,6 +11,7 @@
     password: "{{ item['user_password'] | password_hash('sha512') }}"
     update_password: on_create
     comment: "{{ item['user_comment'] }}"
+    home: "{{ user_home }}"
 
 - name: Create sudoers in sudoers.d directory
   loop: "{{ users }}"

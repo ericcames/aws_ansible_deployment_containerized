@@ -47,19 +47,6 @@
     mode: "0644"
     backup: true
 
-- name: Ensure the /usr/lib/awx directory is owned by ansible-svc
-  ansible.builtin.file:
-    path: /var/lib/awx
-    state: directory
-    recurse: true
-    owner: ansible-svc
-    group: ansible-svc
-
-- name: Change the ansible-svc account home directory
-  ansible.builtin.user:
-    name: ansible-svc
-    home: /var/lib/awx
-
 - name: Run the installer
   remote_user: ansible-svc
   args:
