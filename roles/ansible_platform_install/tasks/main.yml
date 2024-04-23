@@ -56,7 +56,7 @@
     group: ansible-svc
 
 - name: Run the installer
-  become_user: ansible-svc
+  remote_user: ansible-svc
   args:
     chdir: "{{ aap_bundle_dir.stdout }}"
   ansible.builtin.shell:
