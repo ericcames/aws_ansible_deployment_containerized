@@ -26,4 +26,3 @@
               mount_point: /var/lib/awx
               state: present
     - role: linux_account_create
-    - role: ansible_platform_install
