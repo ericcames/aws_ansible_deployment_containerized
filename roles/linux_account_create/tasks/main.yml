@@ -17,7 +17,7 @@
   ansible.builtin.file:
     path: /var/lib/awx
     state: directory
-    recurse: yes
+    recurse: true
     owner: ansible-svc
     group: ansible-svc
 
