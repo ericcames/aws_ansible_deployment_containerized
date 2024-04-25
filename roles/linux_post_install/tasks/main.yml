@@ -20,7 +20,6 @@
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
     name:
-      # - certbot
       - insights-client
       - bind-utils
       - ansible-core
