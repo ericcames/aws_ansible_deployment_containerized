@@ -10,17 +10,17 @@
     state: present
     consumer_name: "{{ containerized_controller_url }}"
 
-- name: Making sure the epel repo is made available
-  ansible.builtin.dnf:
-    name:
-      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-    state: present
-    disable_gpg_check: true
+# - name: Making sure the epel repo is made available
+#   ansible.builtin.dnf:
+#     name:
+#       - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+#     state: present
+#     disable_gpg_check: true
 
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
     name:
-      - certbot
+      # - certbot
       - insights-client
       - bind-utils
       - ansible-core
