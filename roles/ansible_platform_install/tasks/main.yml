@@ -47,14 +47,6 @@
     mode: "0644"
     backup: true
 
-- name: Ensure that the /var/lib/awx directory is owned by ansible-svc
-  ansible.builtin.file:
-    path: /var/lib/awx
-    state: directory
-    recurse: yes
-    owner: ansible-svc
-    group: ansible-svc
-
 - name: Run the installer
   become: false
   args:
