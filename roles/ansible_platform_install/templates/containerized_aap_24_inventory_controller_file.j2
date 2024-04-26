@@ -42,9 +42,9 @@ registry_username='{{ customer_portal_username }}'
 registry_password='{{ customer_portal_password }}'
 
 # If using the bundled installer, you need to alter defaults by using:
-# bundle_install=true
+bundle_install=true
 # The bundle directory must include /bundle in the path
-# bundle_dir={{ aap_bundle_dir.stdout }}/bundle
+bundle_dir={{ aap_bundle_dir.stdout }}/bundle
 
 # To add more decision environment images you need to set the de_extra_images variable
 #de_extra_images=[{'name': 'Custom decision environment', 'image': '<registry>/<namespace>/<image>:<tag>'}]
