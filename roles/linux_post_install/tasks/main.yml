@@ -1,7 +1,7 @@
 ---
 - name: Rename server
   ansible.builtin.hostname:
-    name: "{{ inventory_hostname }}"
+    name: "{{ containerized_controller_url }}"
 
 - name: Register and subscribe the systems to access.redhat.com
   community.general.redhat_subscription:
@@ -10,17 +10,18 @@
     state: present
     consumer_name: "{{ containerized_controller_url }}"
 
-# - name: Making sure the epel repo is made available
-#   ansible.builtin.dnf:
-#     name:
-#       - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-#     state: present
-#     disable_gpg_check: true
+- name: Making sure the epel repo is made available
+  ansible.builtin.dnf:
+    name:
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+    state: present
+    disable_gpg_check: true
 
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
     name:
       - insights-client
+      - certbot
       - bind-utils
       - ansible-core
       - wget
@@ -32,10 +33,10 @@
   redhat.insights.insights_register:
     state: present
 
-# - name: Upgrade all packages
-#   ansible.builtin.dnf:
-#     name: "*"
-#     state: latest
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
 
 - name: Copy the sshd-banner file into place
   ansible.builtin.copy:
