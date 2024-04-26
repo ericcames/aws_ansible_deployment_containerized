@@ -86,6 +86,14 @@
     name: cockpit
     state: latest
 
+- name: Make sure the /etc/cockpit directory exists
+  ansible.builtin.file:
+    path: /etc/cockpit
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
 - name: Copy the /etc/issue.cockpit into place
   ansible.builtin.copy:
     src: files/issue.cockpit
