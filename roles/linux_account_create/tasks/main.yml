@@ -13,14 +13,6 @@
     comment: "{{ item['user_comment'] }}"
     home: "{{ item['user_home'] }}"
 
-- name: Ensure that the /var/lib/awx directory is owned by ansible-svc
-  ansible.builtin.file:
-    path: /var/lib/awx
-    state: directory
-    recurse: yes
-    owner: ansible-svc
-    group: ansible-svc
-
 - name: Create sudoers in sudoers.d directory
   loop: "{{ users }}"
   when: item['sudoers_account'] is true
