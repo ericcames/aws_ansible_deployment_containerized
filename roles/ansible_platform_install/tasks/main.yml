@@ -15,7 +15,6 @@
       refresh_token: "{{ offline_token }}"
 
 - name: Ensure we have the AAP bundle
-  become: false
   register: download_aap_tarball
   until: download_aap_tarball is not failed
   retries: 15
