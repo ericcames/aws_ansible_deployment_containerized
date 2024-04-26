@@ -67,12 +67,6 @@
     group: root
     mode: u+rw,g-wx,o-wx
 
-- name: Ensure the /etc/motd is updated to show we are on a control server
-  when: "'control' in group_names"
-  ansible.builtin.lineinfile:
-    path: /etc/motd
-    line: Containerized Ansible Automation Platform
-
 - name: Copy the new /etc/issue into place
   ansible.builtin.copy:
     src: files/issue
