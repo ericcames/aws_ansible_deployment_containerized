@@ -1,7 +1,7 @@
 ---
 - name: Rename server
   ansible.builtin.hostname:
-    name: "{{ inventory_hostname }}"
+    name: "{{ containerized_controller_url }}"
 
 - name: Register and subscribe the systems to access.redhat.com
   community.general.redhat_subscription:
@@ -20,8 +20,8 @@
 - name: Making sure all our software is installed
   ansible.builtin.dnf:
     name:
-      - certbot
       - insights-client
+      - certbot
       - bind-utils
       - ansible-core
       - wget
@@ -67,12 +67,6 @@
     group: root
     mode: u+rw,g-wx,o-wx
 
-- name: Ensure the /etc/motd is updated to show we are on a control server
-  when: "'control' in group_names"
-  ansible.builtin.lineinfile:
-    path: /etc/motd
-    line: Containerized Ansible Automation Platform
-
 - name: Copy the new /etc/issue into place
   ansible.builtin.copy:
     src: files/issue
@@ -91,6 +85,14 @@
   ansible.builtin.dnf:
     name: cockpit
     state: latest
+
+- name: Make sure the /etc/cockpit directory exists
+  ansible.builtin.file:
+    path: /etc/cockpit
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
 
 - name: Copy the /etc/issue.cockpit into place
   ansible.builtin.copy:

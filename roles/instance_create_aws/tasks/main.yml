@@ -32,18 +32,6 @@
     wait: true
     wait_timeout: 600
 
-- name: Create the storage volume we need
-  loop: "{{ ec2_vms['instances'] }}"
-  amazon.aws.ec2_vol:
-    instance: "{{ item['instance_id'] }}"
-    volume_size: 100
-    name: My Controller Volume
-    device_name: /dev/sdf
-    region: "{{ region }}"
-    delete_on_termination: true
-    volume_type: gp3
-    iops: 3000
-
 - name: Ensure we have an elastic ip for each controller
   register: ec2_eips
   loop: "{{ ec2_vms['instances'] }}"
