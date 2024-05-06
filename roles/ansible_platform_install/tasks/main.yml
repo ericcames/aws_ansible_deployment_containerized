@@ -15,7 +15,6 @@
       refresh_token: "{{ offline_token }}"
 
 - name: Ensure we have the AAP bundle
-  become: false
   register: download_aap_tarball
   until: download_aap_tarball is not failed
   retries: 15
@@ -25,20 +24,20 @@
     headers:
       accept: application/json
       Authorization: Bearer {{ access_token.json.access_token }}
-    dest: /var/lib/awx/aap.tar.gz
+    dest: /home/ansible-svc/aap.tar.gz
     checksum: "sha256: {{ aap_bundle_sha_value }}"
 
 - name: Ensure the aap bundle is opened up
   become: false
   ansible.builtin.unarchive:
-    src: /var/lib/awx/aap.tar.gz
-    dest: /var/lib/awx/
+    src: /home/ansible-svc/aap.tar.gz
+    dest: /home/ansible-svc/
     remote_src: true
 
 - name: Ensure we have the AAP bundle directory
   register: aap_bundle_dir
   changed_when: false
-  ansible.builtin.shell: ls -d /var/lib/awx/ansible-automation-platform-containerized-*
+  ansible.builtin.shell: ls -d /home/ansible-svc/ansible-automation-platform-containerized-*
 
 - name: Ensure the inventory file is configured to install the Controller
   ansible.builtin.template:
