@@ -50,7 +50,5 @@
       - control
 
 - name: Capture public ip address
-  register: my_public_ip
-  ansible.builtin.set_stats:
-    data:
+  ansible.builtin.set_fact:
       my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
