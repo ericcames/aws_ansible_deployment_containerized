@@ -33,10 +33,10 @@
   redhat.insights.insights_register:
     state: present
 
-- name: Upgrade all packages
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
+# - name: Upgrade all packages
+#   ansible.builtin.dnf:
+#     name: "*"
+#     state: latest
 
 - name: Update the /etc/hosts file
   ansible.builtin.template:
