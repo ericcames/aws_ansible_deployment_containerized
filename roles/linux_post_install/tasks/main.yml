@@ -48,7 +48,7 @@
     setype: net_conf_t
     setuser: system_u
     serole: object_r
-
+    backup: true
 
 - name: Copy the sshd-banner file into place
   ansible.builtin.copy:
