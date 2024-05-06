@@ -38,6 +38,18 @@
     name: "*"
     state: latest
 
+- name: Update the /etc/hosts file
+  ansible.builtin.template:
+    src: templates/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'
+    setype: net_conf_t
+    setuser: system_u
+    serole: object_r
+
+
 - name: Copy the sshd-banner file into place
   ansible.builtin.copy:
     src: files/sshd-banner
