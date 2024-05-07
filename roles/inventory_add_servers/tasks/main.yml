@@ -54,6 +54,6 @@
     my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
     cacheable: yes
 
-- name: Print my_public_ip
+- name: Print all available facts
   ansible.builtin.debug:
-    var: my_public_ip
+    var: ansible_facts
