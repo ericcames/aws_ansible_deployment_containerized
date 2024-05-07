@@ -50,10 +50,6 @@
       - control
 
 - name: Capture public ip address
-  ansible.builtin.set_fact:
-    my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
-    cacheable: yes
-
-- name: Print all available facts
-  ansible.builtin.debug:
-    var: ansible_facts
+  ansible.builtin.set_stats:
+    data:
+      my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
