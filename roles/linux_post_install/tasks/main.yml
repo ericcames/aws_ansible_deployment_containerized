@@ -140,3 +140,7 @@
 - name: Reboot the machine if it is required
   when: reboot_required.stat.exists
   ansible.builtin.reboot:
+
+- name: Print all available facts
+  ansible.builtin.debug:
+    var: ansible_facts
