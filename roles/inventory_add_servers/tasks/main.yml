@@ -51,4 +51,4 @@
 
 - name: Capture public ip address
   ansible.builtin.set_fact:
-      my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
+    my_public_ip: "{{ instance_info.instances[0].public_ip_address }}"
