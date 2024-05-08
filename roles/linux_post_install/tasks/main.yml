@@ -49,9 +49,6 @@
     owner: root
     group: root
     mode: '0644'
-    setype: net_conf_t
-    setuser: system_u
-    serole: object_r
     backup: true
 
 - name: Copy the sshd-banner file into place
