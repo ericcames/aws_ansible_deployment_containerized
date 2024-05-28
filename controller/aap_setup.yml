@@ -1,0 +1,21 @@
+---
+- name: Playbook to configure ansible controller post installation
+  hosts: localhost
+  connection: local
+  vars:
+    controller_validate_certs: false
+    controller_hostname: aap.kona.services
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+  collections:
+    - ansible.controller
+
+  pre_tasks:
+    - name: Include vars from controller_configs directory
+      ansible.builtin.include_vars:
+        dir: ./
+        ignore_files: [controller_config.yml.template]
+        extensions: ["yml"]
+
+  roles:
+    - {role: infra.controller_configuration.users, when: controller_user_accounts is defined}

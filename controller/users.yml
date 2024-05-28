@@ -1,0 +1,5 @@
+---
+controller_user_accounts:
+ - user: zigfreed
+   is_superuser: true
+   password: "{{ zigs_passwd | password_hash('sha512') }}"
