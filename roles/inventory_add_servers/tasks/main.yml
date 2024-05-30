@@ -21,7 +21,7 @@
 
 - name: Update the AAP AWS Managed Inventory with the controllers
   loop: "{{ instance_info['instances'] }}"
-  ansible.controller.host:
+  awx.awx.host:
     controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
@@ -31,23 +31,20 @@
     enabled: true
 
 - name: Create a group for our Automation Controllers
-  loop: "{{ instance_info['instances'] }}"
-  ansible.controller.group:
+  awx.awx.group:
     controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
     name: control
     description: Automation Controller Group
     inventory: AAP Containerized AWS Inventory - Managed
-    hosts: "{{ item['public_dns_name'] }}"
+    hosts: "{{ instance_info['instances'] }}"
     preserve_existing_hosts: true
 
 - name: Update runtime inventory
-  loop: "{{ instance_info['instances'] }}"
   ansible.builtin.add_host:
     name: "{{ item['public_dns_name'] }}"
-    groups:
-      - control
+    groups: "{{ instance_info['instances'] }}"
 
 - name: Capture public ip address
   ansible.builtin.set_fact:
