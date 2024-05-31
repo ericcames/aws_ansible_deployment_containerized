@@ -30,7 +30,7 @@
     state: present
 
 - name: Register the insights client
-  redhat.insights.insights_register:
+  redhatinsights.insights.insights_register:
     state: present
 
 # - name: Upgrade all packages
