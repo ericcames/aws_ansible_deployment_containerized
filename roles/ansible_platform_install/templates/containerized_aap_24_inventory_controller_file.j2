@@ -5,22 +5,22 @@
 # This section is for your AAP Controller host(s)
 # -------------------------------------------------
 [automationcontroller]
-{{  containerized_controller_url }} ansible_connection=local
+{{ containerized_controller_url }} ansible_connection=local
 
 # This section is for your AAP Automation Hub host(s)
 # -----------------------------------------------------
 [automationhub]
-{{  containerized_controller_url }} ansible_connection=local
+{{ containerized_controller_url }} ansible_connection=local
 
 # This section is for your AAP EDA Controller host(s)
 # -----------------------------------------------------
 [automationeda]
-{{  containerized_controller_url }} ansible_connection=local
+{{ containerized_controller_url }} ansible_connection=local
 
 # This section is for your AAP Execution host(s)
 # ------------------------------------------------
 #[execution_nodes]
-#{{  containerized_controller_url }}
+#{{ containerized_controller_url }}
 
 # This section is for the AAP database(s)
 # -----------------------------------------
@@ -28,7 +28,7 @@
 # Leave commented out if you intend to use your own external database and just set appropriate _pg_hosts vars
 # see mandatory sections under each AAP component
 [database]
-{{  containerized_controller_url }} ansible_connection=local
+{{ containerized_controller_url }} ansible_connection=local
 
 [all:vars]
 
@@ -50,15 +50,16 @@ bundle_dir={{ aap_bundle_dir.stdout }}/bundle
 #de_extra_images=[{'name': 'Custom decision environment', 'image': '<registry>/<namespace>/<image>:<tag>'}]
 # To add more execution environment images you need to set the ee_extra_images variable
 #ee_extra_images=[{'name': 'Custom execution environment', 'image': '<registry>/<namespace>/<image>:<tag>'}]
+
 # To use custom TLS CA certificate/key you need to set these variables
-#ca_tls_cert=<full path to your TLS CA certificate file>
-#ca_tls_key=<full path to your TLS CA key file>
+#ca_tls_cert=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/fullchain.pem
+#ca_tls_key=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/privkey.pem
 
 # AAP Database - optional
 # --------------------------
 # To use custom TLS certificate/key you need to set these variables
-#postgresql_tls_cert=<full path to your TLS certificate file>
-#postgresql_tls_key=<full path to your TLS key file>
+#postgresql_tls_cert=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/fullchain.pem
+#postgresql_tls_key=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/privkey.pem
 
 # AAP Controller - mandatory
 # --------------------------
@@ -69,41 +70,46 @@ controller_pg_password='{{ controller_passwd }}'
 # AAP Controller - optional
 # -------------------------
 # To use the postinstall feature you need to set these variables
-#controller_postinstall=true
-#controller_license_file=<full path to your manifest .zip file>
-#controller_postinstall_dir=<full path to your config-as-code directory>
+controller_postinstall=true
+controller_license_file=/home/ansible-svc/.manifest/{{ manifest_file_name }}
+controller_postinstall_dir=/home/ansible-svc/git-repos
 # When using config-as-code in a git repository
-#controller_postinstall_repo_url=<url to your config-as-code git repository>
-#controller_postinstall_repo_ref=main
+controller_postinstall_repo_url={{ controller_postinstall_repo_url }}
+controller_postinstall_repo_ref=main
+
 # To use custom TLS certificate/key you need to set these variables
-#controller_tls_cert=<full path to your TLS certificate file>
-#controller_tls_key=<full path to your TLS key file>
+#controller_tls_cert=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/fullchain.pem
+#controller_tls_key=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/privkey.pem
 
 # AAP Automation Hub - mandatory
 # ------------------------------
 hub_admin_password='{{ controller_passwd }}'
-hub_pg_host={{  containerized_controller_url }}
+hub_pg_host={{ containerized_controller_url }}
 hub_pg_password='{{ controller_passwd }}'
 
 # AAP Automation Hub - optional
 # -----------------------------
 # To use the postinstall feature you need to set these variables
-#hub_postinstall=true
-#hub_postinstall_dir=<full path to your config-as-code directory>
+hub_postinstall=true
+hub_postinstall_dir=/home/ansible-svc/git-repos
 # When using config-as-code in a git repository
-#hub_postinstall_repo_url=<url to your config-as-code git repository>
-#hub_postinstall_repo_ref=main
+hub_postinstall_repo_url={{ hub_postinstall_repo_url }}
+hub_postinstall_repo_ref=main
+
 # To customize the number of worker containers
 #hub_workers=2
+
 # To use the collection signing feature you need to set these variables
 #hub_collection_signing=true
 #hub_collection_signing_key=<full path to your gpg key file>
+
 # To use the container signing feature you need to set these variables
 #hub_container_signing=true
 #hub_container_signing_key=<full path to your gpg key file>
+
 # To use custom TLS certificate/key you need to set these variables
-#hub_tls_cert=<full path to your TLS certificate file>
-#hub_tls_key=<full path to your TLS key file>
+#hub_tls_cert=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/fullchain.pem
+#hub_tls_key=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/privkey.pem
 
 # AAP EDA Controller - mandatory
 # ------------------------------
@@ -118,9 +124,10 @@ eda_pg_password='{{ controller_passwd }}'
 # To customize the number of default/activation worker containers
 #eda_workers=2
 #eda_activation_workers=2
+
 # To use custom TLS certificate/key you need to set these variables
-#eda_tls_cert=<full path to your TLS certificate file>
-#eda_tls_key=<full path to your TLS key file>
+#eda_tls_cert=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/fullchain.pem
+#eda_tls_key=/home/ansible-svc/.sslcerts/{{ containerized_controller_url }}/privkey.pem
 
 # AAP Execution Nodes - optional
 # -----------------------------

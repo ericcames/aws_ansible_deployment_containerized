@@ -33,10 +33,10 @@
   redhat.insights.insights_register:
     state: present
 
-# - name: Upgrade all packages
-#   ansible.builtin.dnf:
-#     name: "*"
-#     state: latest
+- name: Upgrade all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
 
 - name: Get the ansible fact from the first play
   ansible.builtin.set_fact:

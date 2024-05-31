@@ -30,3 +30,19 @@
     user: "{{ item['name']}}"
     state: present
     key: "{{ lookup('file', item['key'] ) }}"
+
+- name: Make sure the /home/ansible-svc/git-repos exists
+  ansible.builtin.file:
+    path: /home/ansible-svc/git-repos
+    state: directory
+    owner: ansible-svc
+    group: ansible-svc
+    mode: "0755"
+
+- name: Make sure the /home/ansible-svc/.manifest exists
+  ansible.builtin.file:
+    path: /home/ansible-svc/.manifest
+    state: directory
+    owner: ansible-svc
+    group: ansible-svc
+    mode: "0755"
