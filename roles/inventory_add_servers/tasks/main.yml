@@ -25,6 +25,7 @@
     controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
+    validate_certs: false
     name: "{{ item['public_dns_name'] }}"
     inventory: AAP Containerized AWS Inventory - Managed
     state: present
