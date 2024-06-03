@@ -37,6 +37,7 @@
     controller_host: https://{{ controller_url }}
     controller_username: "{{ controller_user }}"
     controller_oauthtoken: "{{ new_token.json.token }}"
+    validate_certs: false
     name: control
     description: Automation Controller Group
     inventory: AAP Containerized AWS Inventory - Managed
