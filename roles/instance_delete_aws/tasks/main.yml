@@ -9,8 +9,7 @@
       tag:Contact: "{{ my_email_address }}"
 
 - name: Setting AAP_Deployment ec2 nodes to absent
-  loop: "{{ instance_info['instances'] }}"
   amazon.aws.ec2_instance:
     region: "{{ region }}"
     state: absent
-    instance_ids: "{{ item['instance_id'] }}"
+    instance_ids: "{{ instance_info['instances'] }}"

@@ -13,5 +13,5 @@
     consumer_name: "{{ containerized_controller_url }}"
 
 - name: Register the insights client
-  redhat.insights.insights_register:
+  redhatinsights.insights.insights_register:
     state: absent

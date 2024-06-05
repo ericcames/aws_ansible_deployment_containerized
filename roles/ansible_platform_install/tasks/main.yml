@@ -5,7 +5,7 @@
     dest: /home/ansible-svc/.manifest
     owner: ansible-svc
     group: ansible-svc
-    mode: '0644'
+    mode: "0644"
 
 - name: Decrypt our encrypted AAP manifest file
   register: my_output
