@@ -40,7 +40,7 @@
 
 - name: Get the ansible fact from the first play
   ansible.builtin.set_fact:
-    my_public_ip: "{{ hostvars['localhost']['my_public_ip']}}"
+    my_public_ip: "{{ hostvars['localhost']['my_public_ip'] }}"
 
 - name: Print ansible facts
   ansible.builtin.debug:
@@ -101,7 +101,7 @@
 - name: Install the latest version of cockpit
   ansible.builtin.dnf:
     name: cockpit
-    state: latest
+    state: present
 
 - name: Make sure the /etc/cockpit directory exists
   ansible.builtin.file:
@@ -136,6 +136,23 @@
   changed_when: false
   ansible.builtin.command:
     cmd: systemctl start cockpit.socket
+
+- name: Ensure the nightly-shutdown script is in place
+  ansible.builtin.copy:
+    src: files/nightly-shutdown
+    dest: /usr/local/bin/nightly-shutdown
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: Create a nightly-shutdown crontab entry
+  ansible.builtin.cron:
+    name: nightly shutdown
+    minute: "0"
+    hour: "3"
+    user: root
+    job: "/usr/local/bin/nightly-shutdown"
+    cron_file: nightly-shutdown
 
 - name: Check to see if we need a reboot
   register: reboot_required

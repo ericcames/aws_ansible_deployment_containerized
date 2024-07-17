@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/bin/logger "Root crontab - Time to poweroff in 60 seconds" -t nightly-shutdown
+/bin/sleep 60
+/bin/systemctl poweroff
