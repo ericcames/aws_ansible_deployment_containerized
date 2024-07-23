@@ -14,7 +14,7 @@
 - name: Creating machine instance
   register: ec2_vms
   amazon.aws.ec2_instance:
-    name: Ansible Automation Platform
+    name: "{{ instance_create_aws_machine_name }}"
     region: "{{ region }}"
     key_name: "{{ my_ssh_key }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
@@ -24,7 +24,7 @@
       assign_public_ip: "{{ assign_public_ip }}"
     image_id: "{{ image }}"
     tags:
-      Environment: AAP_Deployment
+      Environment: "{{ instance_create_aws_environment_name }}"
       AlwaysUp: "{{ alwaysup }}"
       Createdby: Ansible Controller
       Contact: "{{ my_email_address }}"
