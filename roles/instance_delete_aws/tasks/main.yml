@@ -1,10 +1,10 @@
 ---
-- name: Get instances id with Environment tag AAP_Deployment
+- name: Get instances id with Environment tag
   register: instance_info
   amazon.aws.ec2_instance_info:
     region: "{{ region }}"
     filters:
-      tag:Environment: [AAP_Deployment]
+      tag:Environment: "{{ instance_delete_aws_environment_name }}"
       instance-state-name: [running]
       tag:Contact: "{{ my_email_address }}"
 
