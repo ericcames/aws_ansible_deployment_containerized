@@ -10,7 +10,7 @@
 - name: Decrypt our encrypted AAP manifest file
   register: my_output
   changed_when: my_output.rc != 0
-  ansible.builtin.command: ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
+  ansible.builtin.command: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
 
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token

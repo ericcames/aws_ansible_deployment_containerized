@@ -1,7 +1,6 @@
 ---
 - name: Install our Ansible Automation Platform
   hosts: control
-  become: true
 
   roles:
     - role: ansible_platform_install
