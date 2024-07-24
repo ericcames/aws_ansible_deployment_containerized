@@ -10,6 +10,7 @@
 - name: Decrypt our encrypted AAP manifest file
   register: my_output
   changed_when: my_output.rc != 0
+  failed_when: false
   timeout: 30
   ansible.builtin.shell: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
 
