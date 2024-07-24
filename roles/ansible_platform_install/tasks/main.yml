@@ -8,11 +8,9 @@
     mode: '0644'
 
 - name: Decrypt our encrypted AAP manifest file
-  register: my_output
   timeout: 10
-  ansible.builtin.raw: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
-  args:
-    executable: /bin/bash
+  ansible.builtin.shell:
+    cmd: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
 
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token
@@ -41,6 +39,9 @@
       Authorization: Bearer {{ access_token.json.access_token }}
     dest: /home/ansible-svc/aap.tar.gz
     checksum: "sha256: {{ aap_bundle_sha_value }}"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
 
 - name: Ensure the aap bundle is opened up
   become: false
