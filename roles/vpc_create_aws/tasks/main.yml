@@ -2,17 +2,17 @@
 - name: Create VPC
   register: my_vpc
   amazon.aws.ec2_vpc_net:
-    name: "{{ vpc_create_aws_vpc_name }}_{{ vpc_create_aws_user_name }}"
-    cidr_block: "{{ vpc_create_aws_vpc_cidr }}"
-    region: "{{ vpc_create_aws_region }}"
+    name: "{{ vpc_name }}_{{ user_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ region }}"
     state: present
     tags:
-      AlwaysUp: "{{ vpc_create_aws_alwaysup }}"
-      Name: "{{ vpc_create_aws_user_name }}"
-      ansible_group: "{{ vpc_create_aws_ec2_ansible_group }}"
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ user_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
       Createdby: Ansible Controller
-      Contact: "{{ vpc_create_aws_my_email_address }}"
-      DeletebBy: "{{ vpc_create_aws_deleteby }}"
+      Contact: "{{ my_email_address }}"
+      DeletebBy: "{{ deleteby }}"
 
 - name: Create security group
   tags:
@@ -20,17 +20,17 @@
     - onlyvpc
   register: my_security_group
   amazon.aws.ec2_security_group:
-    name: "{{ vpc_create_aws_ec2_security_group_name }}"
+    name: "{{ ec2_security_group_name }}"
     description: Security group with rule descriptions created by Ansible
     vpc_id: "{{ my_vpc.vpc.id }}"
-    region: "{{ vpc_create_aws_region }}"
+    region: "{{ region }}"
     tags:
-      AlwaysUp: "{{ vpc_create_aws_alwaysup }}"
-      Name: "{{ vpc_create_aws_user_name }}"
-      ansible_group: "{{ vpc_create_aws_ec2_ansible_group }}"
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ user_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
       Createdby: Ansible Controller
-      Contact: "{{ vpc_create_aws_my_email_address }}"
-      DeleteBy: "{{ vpc_create_aws_deleteby }}"
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
     rules:
       - proto: icmp
         from_port: 8 # icmp type, -1 = any type
@@ -90,16 +90,16 @@
   amazon.aws.ec2_vpc_subnet:
     state: present
     vpc_id: "{{ my_vpc.vpc.id }}"
-    cidr: "{{ vpc_create_aws_vpc_cidr }}"
-    region: "{{ vpc_create_aws_region }}"
+    cidr: "{{ vpc_cidr }}"
+    region: "{{ region }}"
     map_public: true
     tags:
-      AlwaysUp: "{{ vpc_create_aws_alwaysup }}"
-      Name: "{{ vpc_create_aws_ec2_vpc_subnet_name }}"
-      ansible_group: "{{ vpc_create_aws_ec2_ansible_group }}"
+      AlwaysUp: "{{ alwaysup }}"
+      Name: "{{ ec2_vpc_subnet_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
       Createdby: Ansible Controller
-      Contact: "{{ vpc_create_aws_my_email_address }}"
-      DeleteBy: "{{ vpc_create_aws_deleteby }}"
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
 
 - name: Create IGW
   tags:
@@ -108,14 +108,14 @@
   register: my_igw
   amazon.aws.ec2_vpc_igw:
     vpc_id: "{{ my_vpc.vpc.id }}"
-    region: "{{ vpc_create_aws_region }}"
+    region: "{{ region }}"
     state: present
     tags:
-      Name: "{{ vpc_create_aws_ec2_igw_name }}"
-      ansible_group: "{{ vpc_create_aws_ec2_ansible_group }}"
+      Name: "{{ ec2_igw_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
       Createdby: Ansible Controller
-      Contact: "{{ vpc_create_aws_my_email_address }}"
-      DeletebBy: "{{ vpc_create_aws_deleteby }}"
+      Contact: "{{ my_email_address }}"
+      DeletebBy: "{{ deleteby }}"
 
 - name: Create Internet route Table
   tags:
@@ -124,14 +124,14 @@
   register: my_route_table
   amazon.aws.ec2_vpc_route_table:
     vpc_id: "{{ my_vpc.vpc.id }}"
-    region: "{{ vpc_create_aws_region }}"
+    region: "{{ region }}"
     tags:
-      AlwaysUp: " {{ vpc_create_aws_alwaysup }} "
-      Name: "{{ vpc_create_aws_ec2_rt_name }}"
-      ansible_group: "{{ vpc_create_aws_ec2_ansible_group }}"
+      AlwaysUp: " {{ alwaysup }} "
+      Name: "{{ ec2_rt_name }}"
+      ansible_group: "{{ ec2_ansible_group }}"
       Createdby: Ansible Controller
-      Contact: "{{ vpc_create_aws_my_email_address }}"
-      DeleteBy: "{{ vpc_create_aws_deleteby }}"
+      Contact: "{{ my_email_address }}"
+      DeleteBy: "{{ deleteby }}"
     subnets:
       - "{{ my_vpc_subnet.subnet.id }}"
     routes:
