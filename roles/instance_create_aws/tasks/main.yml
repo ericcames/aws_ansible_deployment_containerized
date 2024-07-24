@@ -14,7 +14,7 @@
 - name: Creating machine instance
   register: ec2_vms
   amazon.aws.ec2_instance:
-    name: "{{ instance_create_aws_machine_name }}"
+    name: "{{ machine_name }}"
     region: "{{ region }}"
     key_name: "{{ my_ssh_key }}"
     vpc_subnet_id: "{{ vpc_subnet_id }}"
@@ -24,7 +24,7 @@
       assign_public_ip: "{{ assign_public_ip }}"
     image_id: "{{ image }}"
     tags:
-      Environment: "{{ instance_create_aws_environment_name }}"
+      Environment: "{{ environment_name }}"
       AlwaysUp: "{{ alwaysup }}"
       Createdby: Ansible Controller
       Contact: "{{ my_email_address }}"
@@ -49,6 +49,12 @@
     tag_name: reserved_for
     tag_value: "{{ item['instance_id'] }}"
     release_on_disassociation: true
+    tags:
+      Environment: "{{ environment_name }}"
+      AlwaysUp: "{{ alwaysup }}"
+      Createdby: Ansible Controller
+      Contact: "{{ my_email_address }}"
+      DeletebBy: "{{ ec2_ansible_group }}"
 
 - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
   loop: "{{ ec2_eips['results'] }}"

@@ -4,7 +4,7 @@
   amazon.aws.ec2_instance_info:
     region: "{{ region }}"
     filters:
-      tag:Environment: "{{ instance_delete_aws_environment_name }}"
+      tag:Environment: "{{ environment_name }}"
       instance-state-name: [running]
       tag:Contact: "{{ my_email_address }}"
 
