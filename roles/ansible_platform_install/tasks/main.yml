@@ -1,7 +1,7 @@
 ---
 - name: Copy our encrypted AAP manifest file into place
   ansible.builtin.copy:
-    rc: files/{{ manifest_file_name }}
+    src: files/{{ manifest_file_name }}
     dest: /home/ansible-svc/.manifest
     owner: ansible-svc
     group: ansible-svc
