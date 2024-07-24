@@ -1,0 +1,15 @@
+---
+- name: Unregister the systems
+  hosts: control
+  become: true
+
+  roles:
+    - role: linux_unregister_servers
+
+- name: Delete contianerized Ansible Automation Platform deployment at Amazon
+  hosts: localhost
+  connection: local
+
+  roles:
+    - role: vpc_delete_aws
+    - role: inventory_remove_servers
