@@ -7,10 +7,10 @@
     group: ansible-svc
     mode: '0644'
 
-- name: Decrypt our encrypted AAP manifest file
-  timeout: 10
-  ansible.builtin.shell:
-    cmd: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
+  # - name: Decrypt our encrypted AAP manifest file
+  # timeout: 10
+  # ansible.builtin.shell:
+  #   cmd: /usr/bin/ansible-vault decrypt /home/ansible-svc/.manifest/{{ manifest_file_name }}
 
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token
@@ -64,9 +64,9 @@
     mode: "0644"
     backup: true
 
-- name: Run the installer
-  become: false
-  args:
-    chdir: "{{ aap_bundle_dir.stdout }}"
-  ansible.builtin.shell:
-    cmd: ansible-playbook -i inventory ansible.containerized_installer.install
+# - name: Run the installer
+#   become: false
+#   args:
+#     chdir: "{{ aap_bundle_dir.stdout }}"
+#   ansible.builtin.shell:
+#     cmd: ansible-playbook -i inventory ansible.containerized_installer.install
