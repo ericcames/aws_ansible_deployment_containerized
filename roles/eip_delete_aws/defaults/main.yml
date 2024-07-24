@@ -1,2 +1,4 @@
 ---
 region: us-west-1
+environment_name: AAP_Deployment
+my_email_address: mickey.mouse@example.com

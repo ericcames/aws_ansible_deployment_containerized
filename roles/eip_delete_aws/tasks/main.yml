@@ -3,6 +3,9 @@
   register: eip_info
   amazon.aws.ec2_eip_info:
     region: "{{ region }}"
+    filters:
+      tag:Environment: "{{ environment_name }}"
+      tag:Contact: "{{ my_email_address }}"
 
 - name: Print
   ansible.builtin.debug:

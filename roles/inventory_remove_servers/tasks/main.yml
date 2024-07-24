@@ -4,7 +4,7 @@
   amazon.aws.ec2_instance_info:
     region: "{{ region }}"
     filters:
-      tag:Name: Ansible Automation Platform
+      tag:Name: "{{ machine_name }}"
       instance-state-name: [running]
 
 - name: Get an AAP API Token and store it as new_token

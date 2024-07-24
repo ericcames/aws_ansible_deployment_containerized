@@ -2,3 +2,4 @@
 controller_url: example.com
 controller_user: mickey.mouse
 controller_passwd: password
+machine_name: Ansible Automation Platform
