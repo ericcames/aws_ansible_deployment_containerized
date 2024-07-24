@@ -27,9 +27,9 @@
 - name: Making sure the public keys are in place
   loop: "{{ keys }}"
   ansible.posix.authorized_key:
-    user: "{{ item['name']}}"
+    user: "{{ item['name'] }}"
     state: present
-    key: "{{ lookup('file', item['key'] ) }}"
+    key: "{{ lookup('file', item['key']) }}"
 
 - name: Make sure the /home/ansible-svc/git-repos exists
   ansible.builtin.file:
