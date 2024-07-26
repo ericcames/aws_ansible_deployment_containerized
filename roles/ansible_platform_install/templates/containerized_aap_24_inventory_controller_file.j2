@@ -63,7 +63,7 @@ bundle_dir={{ aap_bundle_dir.stdout }}/bundle
 
 # AAP Controller - mandatory
 # --------------------------
-controller_admin_password='{{ controller_passwd }}'
+# controller_admin_password = <vaulted>
 controller_pg_host={{  containerized_controller_url }}
 # controller_pg_password = <vaulted>
 
@@ -83,7 +83,7 @@ controller_postinstall_repo_ref=main
 
 # AAP Automation Hub - mandatory
 # ------------------------------
-hub_admin_password='{{ controller_passwd }}'
+# hub_admin_password = <vaulted>
 hub_pg_host={{ containerized_controller_url }}
 # hub_pg_password = <vaulted>
 
@@ -113,7 +113,7 @@ hub_postinstall_repo_ref=main
 
 # AAP EDA Controller - mandatory
 # ------------------------------
-eda_admin_password='{{ controller_passwd }}'
+# eda_admin_password = <vaulted>
 eda_pg_host={{  containerized_controller_url }}
 # eda_pg_password = <vaulted>
 
