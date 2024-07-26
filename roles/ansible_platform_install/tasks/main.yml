@@ -8,15 +8,6 @@
     mode: '0644'
     decrypt: true
 
-- name: Copy vault into place
-  ansible.builtin.copy:
-    src: files/{{ vault_file_name }}
-    dest: /home/ansible-svc/{{ vault_file_name }}
-    owner: ansible-svc
-    group: ansible-svc
-    mode: '0644'
-    decrypt: false
-
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token
   until: access_token is not failed
@@ -68,6 +59,15 @@
     group: ansible-svc
     mode: "0644"
     backup: true
+
+- name: Copy vault into place
+  ansible.builtin.copy:
+    src: files/{{ vault_file_name }}
+    dest: "{{ aap_bundle_dir.stdout }}/{{ vault_file_name }}"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
+    decrypt: false
 
 # - name: Run the installer
 #   become: false
