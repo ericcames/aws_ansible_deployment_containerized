@@ -4,3 +4,4 @@ aap_bundle_sha_value: "0781cab21cd21992a22bb8ed6f9b1018dff0d092d5882e1e9aafbd483
 manifest_file_name: manifest_Zigfreed_20240528T153016Z.zip
 controller_postinstall_repo_url: https://github.com/ericcames/aap.controller.config.git
 hub_postinstall_repo_url: https://github.com/ericcames/aap.automation_hub.config.git
+vault_file_name: ames_vault.yml
