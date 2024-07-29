@@ -3,8 +3,11 @@ postgresql_admin_password: PASSWD
 registry_username: PASSWD
 registry_password: PASSWD
 
+controller_admin_password: PASSWD
 controller_pg_password: PASSWD
 
+hub_admin_password: PASSWD
 hub_pg_password: PASSWD
 
+eda_admin_password: PASSWD
 eda_pg_password: PASSWD
