@@ -5,3 +5,4 @@ manifest_file_name: manifest_Zigfreed_20240528T153016Z.zip
 controller_postinstall_repo_url: https://github.com/ericcames/aap.controller.config.git
 hub_postinstall_repo_url: https://github.com/ericcames/aap.automation_hub.config.git
 vault_file_name: ames_vault.yml
+secret_file_name: ames_secret.yml
