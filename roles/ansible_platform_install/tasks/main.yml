@@ -8,6 +8,15 @@
     mode: '0644'
     decrypt: true
 
+- name: Copy our secret file into place
+  ansible.builtin.copy:
+    src: files/{{ secret_file_name }}
+    dest: /home/ansible-svc/.ssh/secret
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0600'
+    decrypt: true
+
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token
   until: access_token is not failed
@@ -74,4 +83,4 @@
 #   args:
 #     chdir: "{{ aap_bundle_dir.stdout }}"
 #   ansible.builtin.shell:
-#     cmd: ansible-playbook -i inventory ansible.containerized_installer.install
+#     cmd: "ansible-playbook -i inventory ansible.containerized_installer.install -e@{{ secret_file_name }} --vault-password-file ~/.ssh/secret"
