@@ -18,6 +18,8 @@
     decrypt: true
 
 - name: Copy our secret file into place for non-containerized install
+  become: true
+  become_user: root
   ansible.builtin.copy:
     src: files/{{ secret_file_name }}
     dest: /root/.ssh/secret
@@ -58,6 +60,8 @@
     mode: '0644'
 
 - name: Ensure we have the non-containerized AAP bundle
+  become: true
+  become_user: root
   register: download_aap_tarball
   until: download_aap_tarball is not failed
   retries: 15
@@ -81,7 +85,8 @@
     remote_src: true
 
 - name: Ensure the non-containerized aap bundle is opened up
-  become: false
+  become: true
+  become_user: root
   ansible.builtin.unarchive:
     src: /root/aap.tar.gz
     dest: /root/
@@ -93,6 +98,8 @@
   ansible.builtin.shell: ls -d /home/ansible-svc/ansible-automation-platform-containerized-*
 
 - name: Ensure we have the non-containerized AAP bundle directory
+  become: true
+  become_user: root
   register: non_containerized_aap_bundle_dir
   changed_when: false
   ansible.builtin.shell: ls -d /root/ansible-automation-platform-containerized-*
@@ -116,6 +123,8 @@
     decrypt: false
 
 - name: Copy vault into place for non-containerized install
+  become: true
+  become_user: root
   ansible.builtin.copy:
     src: files/{{ vault_file_name }}
     dest: "{{ non_containerized_aap_bundle_dir.stdout }}/{{ vault_file_name }}"
