@@ -1,13 +1,19 @@
-postgresql_admin_password: PASSWD
+# Red Hat Registry creds
+registry_username: %%USERNAMEGOESHERE%%
+registry_password: %%PASSWORDGOESHERE%%
 
-registry_username: PASSWD
-registry_password: PASSWD
+# Legacy creds
+admin_password: %%PASSWORDGOESHERE%%
+pg_password: %%PASSWORDGOESHERE%%
 
-controller_admin_password: PASSWD
-controller_pg_password: PASSWD
+# Containerized creds
+postgresql_admin_password: %%PASSWORDGOESHERE%%
 
-hub_admin_password: PASSWD
-hub_pg_password: PASSWD
+controller_admin_password: %%PASSWORDGOESHERE%%
+controller_pg_password: %%PASSWORDGOESHERE%%
 
-eda_admin_password: PASSWD
-eda_pg_password: PASSWD
+hub_admin_password: %%PASSWORDGOESHERE%%
+hub_pg_password: %%PASSWORDGOESHERE%%
+
+eda_admin_password: %%PASSWORDGOESHERE%%
+eda_pg_password: %%PASSWORDGOESHERE%%
