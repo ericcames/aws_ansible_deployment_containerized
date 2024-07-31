@@ -125,7 +125,7 @@
   changed_when: false
   ansible.builtin.shell: ls -d /root/ansible-automation-platform-setup-bundle-*
 
-- name: Ensure the inventory file is configured to install the Controller
+- name: Ensure the containerized inventory file is configured to install the Controller
   tags:
     - container
   ansible.builtin.template:
@@ -136,9 +136,11 @@
     mode: "0644"
     backup: true
 
-- name: Ensure the inventory file is configured to install the Controller
+- name: Ensure the legacy inventory file is configured to install the Controller
   tags:
     - legacy
+  become: true
+  become_user: root
   ansible.builtin.template:
     src: templates/legacy_aap_24_inventory_controller_file.j2
     dest: "{{ non_containerized_aap_bundle_dir.stdout }}/inventory"
