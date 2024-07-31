@@ -136,6 +136,17 @@
     mode: "0644"
     backup: true
 
+- name: Ensure the inventory file is configured to install the Controller
+  tags:
+    - legacy
+  ansible.builtin.template:
+    src: templates/legacy_aap_24_inventory_controller_file.j2
+    dest: "{{ non_containerized_aap_bundle_dir.stdout }}/inventory"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+
 - name: Copy vault into place
   tags:
     - container
