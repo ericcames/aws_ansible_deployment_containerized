@@ -1,5 +1,7 @@
 ---
 - name: Copy our encrypted AAP manifest file into place
+  tags:
+    - container
   ansible.builtin.copy:
     src: files/{{ manifest_file_name }}
     dest: /home/ansible-svc/.manifest
@@ -9,6 +11,8 @@
     decrypt: true
 
 - name: Copy our secret file into place
+  tags:
+    - container
   ansible.builtin.copy:
     src: files/{{ secret_file_name }}
     dest: /home/ansible-svc/.ssh/secret
@@ -20,6 +24,8 @@
 - name: Copy our secret file into place for non-containerized install
   become: true
   become_user: root
+  tags:
+    - legacy
   ansible.builtin.copy:
     src: files/{{ secret_file_name }}
     dest: /root/.ssh/secret
@@ -29,6 +35,9 @@
     decrypt: true
 
 - name: Ensure we have a access token the Red Hat Customer portal
+  tags:
+    - legacy
+    - container
   register: access_token
   until: access_token is not failed
   retries: 1
@@ -44,6 +53,8 @@
       refresh_token: "{{ offline_token }}"
 
 - name: Ensure we have the AAP bundle
+  tags:
+    - container
   register: download_aap_tarball
   until: download_aap_tarball is not failed
   retries: 15
@@ -60,6 +71,8 @@
     mode: '0644'
 
 - name: Ensure we have the non-containerized AAP bundle
+  tags:
+    - legacy
   become: true
   become_user: root
   register: download_aap_tarball
@@ -78,6 +91,8 @@
     mode: '0644'
 
 - name: Ensure the aap bundle is opened up
+  tags:
+    - container
   become: false
   ansible.builtin.unarchive:
     src: /home/ansible-svc/aap.tar.gz
@@ -85,6 +100,8 @@
     remote_src: true
 
 - name: Ensure the non-containerized aap bundle is opened up
+  tags:
+    - legacy
   become: true
   become_user: root
   ansible.builtin.unarchive:
@@ -93,18 +110,24 @@
     remote_src: true
 
 - name: Ensure we have the AAP bundle directory
+  tags:
+    - container
   register: aap_bundle_dir
   changed_when: false
   ansible.builtin.shell: ls -d /home/ansible-svc/ansible-automation-platform-containerized-*
 
 - name: Ensure we have the non-containerized AAP bundle directory
+  tags:
+    - legacy
   become: true
   become_user: root
   register: non_containerized_aap_bundle_dir
   changed_when: false
-  ansible.builtin.shell: ls -d /root/ansible-automation-platform-containerized-*
+  ansible.builtin.shell: ls -d /root/ansible-automation-platform-setup-bundle-*
 
 - name: Ensure the inventory file is configured to install the Controller
+  tags:
+    - container
   ansible.builtin.template:
     src: templates/containerized_aap_24_inventory_controller_file.j2
     dest: "{{ aap_bundle_dir.stdout }}/inventory"
@@ -114,6 +137,8 @@
     backup: true
 
 - name: Copy vault into place
+  tags:
+    - container
   ansible.builtin.copy:
     src: files/{{ vault_file_name }}
     dest: "{{ aap_bundle_dir.stdout }}/{{ vault_file_name }}"
@@ -123,6 +148,8 @@
     decrypt: false
 
 - name: Copy vault into place for non-containerized install
+  tags:
+    - legacy
   become: true
   become_user: root
   ansible.builtin.copy:
