@@ -17,6 +17,15 @@
     mode: '0600'
     decrypt: true
 
+- name: Copy our secret file into place for non-containerized install
+  ansible.builtin.copy:
+    src: files/{{ secret_file_name }}
+    dest: /home/root/.ssh/secret
+    owner: root
+    group: root
+    mode: '0600'
+    decrypt: true
+
 - name: Ensure we have a access token the Red Hat Customer portal
   register: access_token
   until: access_token is not failed
@@ -48,6 +57,22 @@
     group: ansible-svc
     mode: '0644'
 
+- name: Ensure we have the non-containerized AAP bundle
+  register: download_aap_tarball
+  until: download_aap_tarball is not failed
+  retries: 15
+  delay: 20
+  ansible.builtin.get_url:
+    url: https://api.access.redhat.com/management/v1/images/{{ aap_non_container_bundle_sha_value }}/download
+    headers:
+      accept: application/json
+      Authorization: Bearer {{ access_token.json.access_token }}
+    dest: /home/root/aap.tar.gz
+    checksum: "sha256: {{ aap_non_container_bundle_sha_value }}"
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: Ensure the aap bundle is opened up
   become: false
   ansible.builtin.unarchive:
@@ -55,10 +80,22 @@
     dest: /home/ansible-svc/
     remote_src: true
 
+- name: Ensure the non-containerized aap bundle is opened up
+  become: false
+  ansible.builtin.unarchive:
+    src: /home/root/aap.tar.gz
+    dest: /home/root/
+    remote_src: true
+
 - name: Ensure we have the AAP bundle directory
   register: aap_bundle_dir
   changed_when: false
   ansible.builtin.shell: ls -d /home/ansible-svc/ansible-automation-platform-containerized-*
+
+- name: Ensure we have the non-containerized AAP bundle directory
+  register: non_containerized_aap_bundle_dir
+  changed_when: false
+  ansible.builtin.shell: ls -d /home/root/ansible-automation-platform-containerized-*
 
 - name: Ensure the inventory file is configured to install the Controller
   ansible.builtin.template:
@@ -75,6 +112,15 @@
     dest: "{{ aap_bundle_dir.stdout }}/{{ vault_file_name }}"
     owner: ansible-svc
     group: ansible-svc
+    mode: '0644'
+    decrypt: false
+
+- name: Copy vault into place for non-containerized install
+  ansible.builtin.copy:
+    src: files/{{ vault_file_name }}
+    dest: "{{ non_containerized_aap_bundle_dir.stdout }}/{{ vault_file_name }}"
+    owner: root
+    group: root
     mode: '0644'
     decrypt: false
 
