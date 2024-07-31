@@ -6,3 +6,4 @@ controller_postinstall_repo_url: https://github.com/ericcames/aap.controller.con
 hub_postinstall_repo_url: https://github.com/ericcames/aap.automation_hub.config.git
 vault_file_name: ames_vault.yml
 secret_file_name: ames_secret.yml
+aap_non_container_bundle_sha_value: "730c4b831a8c1cddd0a7023db2dd1159d0aebd2dc81921fe3224999d771b5dfb"

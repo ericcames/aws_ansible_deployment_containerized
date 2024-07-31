@@ -25,6 +25,7 @@
       - wget
       - git
       - rsync
+      - certbot
     state: present
 
 - name: Register the insights client
