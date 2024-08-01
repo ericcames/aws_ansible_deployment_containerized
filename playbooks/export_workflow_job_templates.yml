@@ -37,4 +37,9 @@
 
     - name: Print out my workflow information
       ansible.builtin.debug:
-        var: my_workflow_info | ansible.builtin.to_yaml
+        var: my_workflow_info
+
+    - name: Export workflow job template to a file
+      ansible.builtin.copy:
+        content: "{{ export_results | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+        dest: "{{ workflow_job_template_name }}_workflow.yaml"
