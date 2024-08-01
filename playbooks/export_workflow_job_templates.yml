@@ -41,5 +41,5 @@
 
     - name: Export workflow job template to a file
       ansible.builtin.copy:
-        content: "{{ export_results | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
+        content: "{{ my_workflow_info | to_nice_yaml( width=50, explicit_start=True, explicit_end=True) }}"
         dest: "{{ workflow_job_template_name }}_workflow.yaml"
